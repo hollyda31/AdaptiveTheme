@@ -18,6 +18,6 @@
   "license": "GPL-2.0+",
   "minimum-stability": "dev",
   "require": {
-    "drupal/at_tools": "8.*"
+    "drupal/at_tool": "^8 || ^9"
   }
 }
