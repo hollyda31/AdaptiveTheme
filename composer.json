@@ -1,0 +1,23 @@
+{
+  "name": "drupal/at_theme",
+  "description": "Advanced base theme for Drupal.",
+  "type": "drupal-theme",
+  "homepage": "https://www.drupal.org/project/adaptivetheme",
+  "authors": [
+    {
+      "name": "Matt",
+      "homepage": "http://adaptivethemes.com",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/at_theme",
+    "irc": "irc://irc.freenode.org/drupal-contribute",
+    "source": "http://git.drupal.org/project/at_theme.git"
+  },
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "require": {
+    "drupal/at_tools": "8.*"
+  }
+}
