@@ -58,7 +58,7 @@ function at_core_form_system_theme_settings_alter(&$form, FormStateInterface $fo
   
 
   // Set variables if modules exist.
-  $modules = ['node', 'comment', 'block', 'block_content', 'paragraphs', 'breakpoint', 'at_tools'];
+  $modules = ['node', 'comment', 'block', 'block_content', 'paragraphs', 'breakpoint', 'at_tool'];
   $module_exists = [];
   foreach ($modules as $module) {
     $module_exists[$module] = FALSE;
@@ -74,7 +74,7 @@ function at_core_form_system_theme_settings_alter(&$form, FormStateInterface $fo
   $block_content_module = $module_exists['block_content'];
   $paragraphs_module = $module_exists['paragraphs'];
   $breakpoint_module = $module_exists['breakpoint'];
-  $at_tools_module = $module_exists['at_tools'];
+  $at_tools_module = $module_exists['at_tool'];
 
   // Get stuff.
   $ext_get = New ExtGet;
@@ -128,7 +128,7 @@ function at_core_form_system_theme_settings_alter(&$form, FormStateInterface $fo
 
   // Display a rude message if AT Tools is missing...
   if ($at_tools_module === FALSE) {
-    \Drupal::messenger()->addMessage(t('Please install the <a href="@at_tools_href" target="_blank">AT Tools</a> module for Drupal 8. Your theme may not operate correctly without this module installed.', ['@at_tools_href' => 'https://www.drupal.org/project/at_tools']), 'warning');
+    \Drupal::messenger()->addMessage(t('Please install the <a href="@at_tools_href" target="_blank">AT Tool</a> module for Drupal 8/9. Your theme may not operate correctly without this module installed.', ['@at_tools_href' => 'https://www.drupal.org/project/at_tool']), 'warning');
   }
 
   // AT Core
