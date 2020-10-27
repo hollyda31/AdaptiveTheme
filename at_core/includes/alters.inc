@@ -657,7 +657,7 @@ function at_core_theme_registry_alter(&$theme_registry) {
  */
 function at_core_element_info_alter(array &$info) {
   // Remove the html5 shiv. Add it later if legacy browser support is enabled.
-  if (in_array('core/html5shiv', $info['html']['#attached']['library'])) {
-    $info['html']['#attached']['library'] = array_merge(array_diff($info['html']['#attached']['library'], ['core/html5shiv']));
-  }
+  //if (in_array('core/html5shiv', $info['html']['#attached']['library'])) {
+    //$info['html']['#attached']['library'] = array_merge(array_diff($info['html']['#attached']['library'], ['core/html5shiv']));
+  //}
 }
