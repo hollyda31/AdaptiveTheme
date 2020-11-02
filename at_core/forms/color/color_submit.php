@@ -86,7 +86,8 @@ function at_color_scheme_form_submit($form, FormStateInterface $form_state) {
   $paths['target'] = $paths['color'] . '/' . $id;
   foreach ($paths as $path) {
     /*file_prepare_directory($path, FILE_CREATE_DIRECTORY);*/
-	\Drupal::service('file_system')->prepareDirectory($path, FILE_CREATE_DIRECTORY);
+	//\Drupal::service('file_system')->prepareDirectory($path, FILE_CREATE_DIRECTORY);
+	\Drupal::service('file_system')->prepareDirectory($path, FileSystemInterface::CREATE_DIRECTORY);
   }
   $paths['target'] = $paths['target'] . '/';
   $paths['id'] = $id;
