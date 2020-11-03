@@ -112,7 +112,8 @@ function at_core_theme_suggestions_block_alter(array &$suggestions, array $varia
     // Skin themes need to use the base themes block elements id to match the config setting.
     $variables['elements']['#id'] = str_replace($theme['name'], $theme['base'], $variables['elements']['#id']);
   }
-  if (isset($theme['config']['responsive_menu_block']) && $theme['config']['responsive_menu_block'] === $variables['elements']['#id']) {
+  if (isset($theme['config']['responsive_menu_block'], $variables['elements']['#id']) && $theme['config']['responsive_menu_block'] === $variables['elements']['#id']) {
+  //if (isset($theme['config']['responsive_menu_block']) && $theme['config']['responsive_menu_block'] === $variables['elements']['#id']) {
     if (isset($theme['config']['enable_extensions']) && $theme['config']['enable_extensions'] === 1) {
       if (isset($theme['config']['enable_responsive_menus']) && $theme['config']['enable_responsive_menus'] === 1) {
         if (isset($theme['config']['responsive_menu_block'])) {
