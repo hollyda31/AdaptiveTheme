@@ -143,7 +143,8 @@ function at_core_form_node_form_alter(&$form, FormStateInterface $form_state) {
       '#type' => 'item',
       '#wrapper_attributes' => ['class' => ['entity-meta__author']],
       /*'#markup' => '<h4 class="label inline">' . t('Author') . '</h4> ' . $node->getOwner()->getUsername(),*/
-	  '#markup' => '<h4 class="label inline">' . t('Author') . '</h4> ' . $node->getOwner()->​getAccountName(),
+	  //'#markup' => '<h4 class="label inline">' . t('Author') . '</h4> ' . $node->getOwner()->​getAccountName(),
+	  '#markup' => '<h4 class="label inline">' . t('Author') . '</h4> ' . $node->getOwner()->getDisplayName(),
     ],
   ];
 
