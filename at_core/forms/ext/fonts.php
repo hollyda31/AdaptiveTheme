@@ -107,6 +107,7 @@ $form['fonts']['setup']['google_fonts']['settings_font_google'] = [
     '#items' => [
       t('Use the <a href=":google_font_wizard" target="_blank">Google font wizard</a> to select your fonts.', [':google_font_wizard' => 'https://fonts.google.com/']),
       t('Click the "Use" button, then copy/paste the URL from the <em>Standard</em> method, e.g. <code>https://fonts.googleapis.com/css?family=Open+Sans</code>'),
+	  t('If using multiple Google Fonts, make sure your URL reads css instead of css2 and uses a pipe delimiter to separate the fonts, e.g. <code>https://fonts.googleapis.com/css?family=Modak|Parisienne</code>'),
       t('Note: always use <code>https</code>, even with <code>http</code> and mixed content websites.'),
     ],
   ],
