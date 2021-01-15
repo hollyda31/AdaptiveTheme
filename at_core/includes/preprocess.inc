@@ -4,6 +4,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Template\Attribute;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Tags;
+use Drupal\at_core\LazyBuilders;
 use Drupal\at_core\Layout\LayoutLoad;
 use Drupal\at_core\Theme\ThemeConfig;
 use Drupal\image\Entity\ImageStyle;
@@ -785,7 +786,7 @@ function at_core_preprocess_breadcrumb(&$variables) {
       if (isset($config['breadcrumb_title']) && $config['breadcrumb_title'] === 1) {
         // Use a placeholder to inject dynamic content.
         $placeholder_title = [
-          '#lazy_builder' => ['_at_core_breadcrumb_title_placeholder', ['page_title']],
+          '#lazy_builder' => [[LazyBuilders::class, 'breadcrumbTitle'], []],
           '#create_placeholder' => TRUE,
         ];
         $variables['breadcrumb'][] = ['text' => $placeholder_title];

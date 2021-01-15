@@ -14,22 +14,6 @@ function _at_core_cleanup_twig_debug_output($variable) {
 }
 
 /**
- * Return values for the breadcrumb title placeholder.
- * @param $page_title
- * @return array
- */
-function _at_core_breadcrumb_title_placeholder($page_title) {
-  $request = \Drupal::request();
-  $route_match = \Drupal::routeMatch();
-  $title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
-  $array = [
-    '#theme' => 'page_title__breadcrumb',
-    '#title' => $title,
-  ];
-  return $array;
-}
-
-/**
  * Helper function for layout plugin attributes.
  * @param $variables
  * @return mixed
