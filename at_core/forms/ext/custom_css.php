@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Generate settings for the Custom CSS form.
  */
 

@@ -1,19 +1,20 @@
 <?php
 
 /**
+ * @file
  * Generate form elements for the Responsive Menu settings.
  */
 
 $responsive_menu_breakpoint_group = theme_get_setting('settings.responsive_menu_breakpoint_group', $theme);
 $responsive_menu_breakpoints = $breakpoints[$responsive_menu_breakpoint_group];
 
-// Breakpoint options
+// Breakpoint options.
 $rmb_group_options = [];
 foreach ($responsive_menu_breakpoints as $rmb_key => $rmb_value) {
   $rmb_group_options[$rmb_value->getMediaQuery()] = $rmb_value->getLabel() . ': ' . $rmb_value->getMediaQuery();
 }
 
-// Menu blocks
+// Menu blocks.
 if (!empty($theme_blocks)) {
   $default_value = theme_get_setting('settings.responsive_menu_block', $theme);
   foreach ($theme_blocks as $block_key => $block_values) {
@@ -27,7 +28,7 @@ else {
   $menu_blocks['bummer'] = '-- no menu blocks available --';
 }
 
-// menu style options
+// Menu style options.
 $responsive_menu_options = [
   'none' => t('-- none --'),
   'horizontal' => t('Horizontal'),
@@ -58,17 +59,17 @@ $form['responsive_menus']['default_settings'] = [
   '#attributes' => ['class' => ['clearfix']],
 ];
 
-// Menu
+// Menu.
 $form['responsive_menus']['default_settings']['settings_responsive_menu_block'] = [
   '#type' => 'select',
   '#title' => t('Menu'),
   '#options' => $menu_blocks,
-  //'#default_value' => theme_get_setting('settings.responsive_menu_block', $theme),
+  // '#default_value' => theme_get_setting('settings.responsive_menu_block', $theme),
   '#default_value' => $default_value,
 
 ];
 
-// Breakpoints group
+// Breakpoints group.
 $form['responsive_menus']['default_settings']['settings_responsive_menu_breakpoint_group'] = [
   '#type' => 'select',
   '#title' => t('Breakpoint group'),
@@ -76,7 +77,7 @@ $form['responsive_menus']['default_settings']['settings_responsive_menu_breakpoi
   '#default_value' => $responsive_menu_breakpoint_group,
 ];
 
-// Breakpoint
+// Breakpoint.
 $form['responsive_menus']['default_settings']['settings_responsive_menu_breakpoint'] = [
   '#type' => 'select',
   '#title' => t('Breakpoint'),
@@ -87,7 +88,7 @@ $form['responsive_menus']['default_settings']['settings_responsive_menu_breakpoi
   ],
 ];
 
-// Change message
+// Change message.
 $form['responsive_menus']['default_settings']['responsive_menu_breakpoint_group_haschanged'] = [
   '#type' => 'container',
   '#markup' => t('<em>Save the extension settings to change the breakpoint group and update breakpoint options.</em>'),
@@ -97,7 +98,7 @@ $form['responsive_menus']['default_settings']['responsive_menu_breakpoint_group_
   ],
 ];
 
-// Menu styles
+// Menu styles.
 $form['responsive_menus']['styles'] = [
   '#type' => 'fieldset',
   '#attributes' => ['class' => ['responsive-menu-styles']],
@@ -106,7 +107,7 @@ $form['responsive_menus']['styles'] = [
   ],
 ];
 
-// Default
+// Default.
 $form['responsive_menus']['styles']['settings_responsive_menu_default_style'] = [
   '#type' => 'select',
   '#title' => t('Default style'),
@@ -114,7 +115,7 @@ $form['responsive_menus']['styles']['settings_responsive_menu_default_style'] = 
   '#default_value' => theme_get_setting('settings.responsive_menu_default_style', $theme),
 ];
 
-// Responsive
+// Responsive.
 $form['responsive_menus']['styles']['settings_responsive_menu_responsive_style'] = [
   '#type' => 'select',
   '#title' => t('Responsive style'),
@@ -122,11 +123,11 @@ $form['responsive_menus']['styles']['settings_responsive_menu_responsive_style']
   '#default_value' => theme_get_setting('settings.responsive_menu_responsive_style', $theme),
 ];
 
-// Click menus
+// Click menus.
 $form['responsive_menus']['click_menus'] = [
   '#type' => 'details',
   '#title' => t('Click Menus'),
-  //'#description' => t('These settings only apply to the responsive style (i.e. the "desktop style").'),
+  // '#description' => t('These settings only apply to the responsive style (i.e. the "desktop style").'),
 ];
 
 $form['responsive_menus']['click_menus']['settings_click_menus_enabled'] = [

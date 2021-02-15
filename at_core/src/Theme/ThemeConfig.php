@@ -2,6 +2,9 @@
 
 namespace Drupal\at_core\Theme;
 
+/**
+ *
+ */
 class ThemeConfig extends ThemeInfo {
 
   /**
@@ -16,11 +19,11 @@ class ThemeConfig extends ThemeInfo {
       }
     }
     elseif ($theme['type'] === 'adaptive_skin') {
-      // skin theme has enabled extensions?
+      // Skin theme has enabled extensions?
       if (isset($theme['config_skin']['enable_extensions']) && $theme['config_skin']['enable_extensions'] === 1) {
         $extensions['is_enabled'] = TRUE;
       }
-      // base theme has enabled extensions?
+      // Base theme has enabled extensions?
       elseif (isset($theme['config']['enable_extensions']) && $theme['config']['enable_extensions'] === 1) {
         $extensions['is_enabled'] = TRUE;
       }
@@ -42,12 +45,12 @@ class ThemeConfig extends ThemeInfo {
       }
     }
     elseif ($theme['type'] === 'adaptive_skin') {
-      // skin theme has enabled short codes?
+      // Skin theme has enabled short codes?
       if (isset($theme['config_skin']['enable_shortcodes']) && $theme['config_skin']['enable_shortcodes'] === 1) {
         $shortcodes['is_enabled'] = TRUE;
         $shortcodes['config'] = 'config_skin';
       }
-      // base theme has enabled short codes?
+      // Base theme has enabled short codes?
       elseif (isset($theme['config']['enable_shortcodes']) && $theme['config']['enable_shortcodes'] === 1) {
         $shortcodes['is_enabled'] = TRUE;
         $shortcodes['config'] = 'config';
@@ -60,6 +63,7 @@ class ThemeConfig extends ThemeInfo {
   /**
    * Array of useful stuff we use to determine asset loading and other functions
    * depending on the active theme type - standard sub theme or a skin theme.
+   *
    * @return array|mixed
    */
   public function getConfig() {

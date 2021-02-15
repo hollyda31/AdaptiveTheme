@@ -10,7 +10,7 @@ class ThemeInfo {
 
   /**
    * The theme of the theme settings object.
-   * 
+   *
    * @var string
    */
   protected $theme;
@@ -48,6 +48,7 @@ class ThemeInfo {
    *
    * @param string $key
    *   A string that maps to a key within the theme settings data.
+   *
    * @return mixed
    *   The info data that was requested.
    */
@@ -63,6 +64,7 @@ class ThemeInfo {
   /**
    * Determine the subtheme type, typically this is either adaptive_subtheme or
    * adaptive_skin (skins are sub-sub themes).
+   *
    * @return string
    */
   public function getSubthemeType() {
@@ -72,6 +74,7 @@ class ThemeInfo {
 
   /**
    * Return the base theme name.
+   *
    * @return string
    */
   public function getBaseTheme() {
@@ -80,6 +83,7 @@ class ThemeInfo {
 
   /**
    * Return the base theme info.
+   *
    * @return array
    */
   public function getBaseThemeInfo() {
@@ -88,6 +92,7 @@ class ThemeInfo {
 
   /**
    * Return the sub themes.
+   *
    * @return array
    */
   public function getSubThemes() {
@@ -96,6 +101,7 @@ class ThemeInfo {
 
   /**
    * Return the sub themes info.
+   *
    * @return array
    */
   public function getSubThemesInfo() {
@@ -103,7 +109,7 @@ class ThemeInfo {
     $sub_themes = $this->getSubThemes();
 
     if (isset($sub_themes) && !empty($sub_themes)) {
-      foreach ($sub_themes as $machine_name  => $label) {
+      foreach ($sub_themes as $machine_name => $label) {
         $sub_themes_info[$machine_name] = $this->data[$machine_name]->info;
       }
     }
@@ -113,12 +119,13 @@ class ThemeInfo {
 
   /**
    * Return the sub themes info.
+   *
    * @return array
    */
   public function getSubThemesPaths() {
     $sub_themes_paths = [];
     $sub_themes = $this->getSubThemes();
-    foreach ($sub_themes as $machine_name  => $label) {
+    foreach ($sub_themes as $machine_name => $label) {
       $sub_themes_paths[$machine_name] = $this->data[$machine_name]->getPath();
     }
 
@@ -127,9 +134,11 @@ class ThemeInfo {
 
   /**
    * Return the theme sub path.
+   *
    * @return string
    */
   public function getSubPath() {
     return $this->getThemeInfo('subpath');
   }
+
 }

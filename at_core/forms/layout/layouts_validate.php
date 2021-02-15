@@ -1,9 +1,13 @@
 <?php
 
 /**
+ * @file
  * Validate form values.
  */
 
+/**
+ *
+ */
 function at_core_validate_layouts(&$form, &$form_state) {
   $values = $form_state->getValues();
 

@@ -1,10 +1,15 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\at_core\Theme\ThemeConfig;
-use \Drupal\block_content\BlockContentInterface;
+use Drupal\block_content\BlockContentInterface;
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
+ *
  * @param array $suggestions
  * @param array $variables
  */
@@ -42,7 +47,7 @@ function at_core_theme_suggestions_page_alter(array &$suggestions, array $variab
               }
               $formatted_suggestions[] = str_replace('_', '-', $suggestion_name);
             }
-            $these_suggestions = ['#theme' => 'item_list', '#items' => $formatted_suggestions,];
+            $these_suggestions = ['#theme' => 'item_list', '#items' => $formatted_suggestions];
             \Drupal::messenger()->addMessage(t('Template suggestions for this page:<br>@these_suggestions <p>To stop showing suggestions switch them off in your themes Appearance settings > Developer tools.</p>', ['@these_suggestions' => \Drupal::service('renderer')->renderPlain($these_suggestions)]), 'status');
           }
         }
@@ -53,6 +58,7 @@ function at_core_theme_suggestions_page_alter(array &$suggestions, array $variab
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter() for row templates.
+ *
  * @param array $suggestions
  * @param array $variables
  */
@@ -64,7 +70,7 @@ function at_core_theme_suggestions_row_alter(array &$suggestions, array $variabl
     // Add content type suggestions, e.g. page--node--article.html.twig.
     if ($node = \Drupal::routeMatch()->getParameter('node')) {
       if (is_object($node)) {
-        array_splice($suggestions, 1, 0, 'row__' . $row  . '__node_' . $node->getType());
+        array_splice($suggestions, 1, 0, 'row__' . $row . '__node_' . $node->getType());
       }
       // Row front.
       if (\Drupal::service('path.matcher')->isFrontPage() == TRUE) {
@@ -76,6 +82,7 @@ function at_core_theme_suggestions_row_alter(array &$suggestions, array $variabl
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter() for field templates.
+ *
  * @param array $suggestions
  * @param array $variables
  */
@@ -91,6 +98,7 @@ function at_core_theme_suggestions_field_alter(array &$suggestions, array $varia
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter() for form templates.
+ *
  * @param array $suggestions
  * @param array $variables
  */
@@ -113,7 +121,7 @@ function at_core_theme_suggestions_block_alter(array &$suggestions, array $varia
     $variables['elements']['#id'] = str_replace($theme['name'], $theme['base'], $variables['elements']['#id']);
   }
   if (isset($theme['config']['responsive_menu_block'], $variables['elements']['#id']) && $theme['config']['responsive_menu_block'] === $variables['elements']['#id']) {
-  //if (isset($theme['config']['responsive_menu_block']) && $theme['config']['responsive_menu_block'] === $variables['elements']['#id']) {
+    // If (isset($theme['config']['responsive_menu_block']) && $theme['config']['responsive_menu_block'] === $variables['elements']['#id']) {.
     if (isset($theme['config']['enable_extensions']) && $theme['config']['enable_extensions'] === 1) {
       if (isset($theme['config']['enable_responsive_menus']) && $theme['config']['enable_responsive_menus'] === 1) {
         if (isset($theme['config']['responsive_menu_block'])) {
@@ -142,6 +150,7 @@ function at_core_theme_suggestions_block_alter(array &$suggestions, array $varia
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
  * TODO: keep on on https://drupal.org/node/2247677
+ *
  * @param array $suggestions
  * @param array $variables
  */
@@ -151,6 +160,7 @@ function at_core_theme_suggestions_user_alter(array &$suggestions, array $variab
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter() for form templates.
+ *
  * @param array $suggestions
  * @param array $variables
  */

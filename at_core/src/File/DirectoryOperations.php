@@ -4,6 +4,9 @@ namespace Drupal\at_core\File;
 
 use Drupal\Core\File\FileSystemInterface;
 
+/**
+ *
+ */
 class DirectoryOperations {
 
   /**
@@ -11,6 +14,7 @@ class DirectoryOperations {
    *
    * @param array $file_path
    *   Numeric array of path parts (directories).
+   *
    * @return string
    *   Path to the prepared directory/s.
    */
@@ -18,7 +22,7 @@ class DirectoryOperations {
     $directory_path = implode('/', $file_path);
     if (!file_exists($directory_path)) {
       /*file_prepare_directory($directory_path, FILE_CREATE_DIRECTORY);*/
-	\Drupal::service('file_system')->prepareDirectory($directory_path, FileSystemInterface::CREATE_DIRECTORY);
+      \Drupal::service('file_system')->prepareDirectory($directory_path, FileSystemInterface::CREATE_DIRECTORY);
     }
 
     return $directory_path;
@@ -37,15 +41,15 @@ class DirectoryOperations {
   public function directoryRecursiveCopy($source, $target, $ignore = '/^(\.(\.)?|CVS|\.sass-cache|\.svn|\.git|\.DS_Store)$/') {
     $dir = opendir($source);
     /*file_prepare_directory($target, FILE_CREATE_DIRECTORY);*/
-	\Drupal::service('file_system')->prepareDirectory($target, FileSystemInterface::CREATE_DIRECTORY);
-    while($file = readdir($dir)) {
+    \Drupal::service('file_system')->prepareDirectory($target, FileSystemInterface::CREATE_DIRECTORY);
+    while ($file = readdir($dir)) {
       if (!preg_match($ignore, $file)) {
         if (is_dir($source . '/' . $file)) {
           self::directoryRecursiveCopy($source . '/' . $file, $target . '/' . $file, $ignore);
         }
         else {
           \Drupal::service('file_system')->copy($source . '/' . $file, $target . '/' . $file, FileSystemInterface::EXISTS_RENAME);
-		  /*file_unmanaged_copy($source . '/' . $file, $target . '/' . $file, FILE_EXISTS_RENAME);*/
+          /*file_unmanaged_copy($source . '/' . $file, $target . '/' . $file, FILE_EXISTS_RENAME);*/
         }
       }
     }
@@ -56,19 +60,20 @@ class DirectoryOperations {
    * Delete a folder and all files recursively.
    *
    * @param $directory
+   *
    * @return bool Returns TRUE on success, FALSE on failure
-   * Returns TRUE on success, FALSE on failure
+   *   Returns TRUE on success, FALSE on failure
    */
   public function directoryRemove($directory) {
     if (!file_exists($directory)) {
-      return false;
+      return FALSE;
     }
     if (is_file($directory)) {
       return \Drupal::service('file_system')->unlink($directory);
     }
 
     $dir = dir($directory);
-    while (false !== $entry = $dir->read()) {
+    while (FALSE !== $entry = $dir->read()) {
       if ($entry == '.' || $entry == '..') {
         continue;
       }
@@ -83,8 +88,9 @@ class DirectoryOperations {
    * Scan directories.
    *
    * @param $path
+   *
    * @return array Files below the path.
-   * Files below the path.
+   *   Files below the path.
    */
   public function directoryScan($path) {
     $scan_directories = [];
@@ -99,8 +105,9 @@ class DirectoryOperations {
    * Scan directories recursively.
    *
    * @param $path
+   *
    * @return array Directories & files below the path.
-   * Directories & files below the path.
+   *   Directories & files below the path.
    */
   public function directoryScanRecursive($path) {
     $scan_directories_recursive = [];
@@ -126,6 +133,7 @@ class DirectoryOperations {
    *
    * @param $path
    * @param array $types
+   *
    * @return array globbed files
    */
   public function directoryGlob($path, array $types) {

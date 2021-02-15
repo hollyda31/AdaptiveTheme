@@ -5,18 +5,26 @@ namespace Drupal\at_core\Layout;
 use Drupal\at_core\Theme\ThemeInfo;
 use Drupal\at_core\Theme\ThemeSettingsInfo;
 
+/**
+ *
+ */
 class LayoutCompatible {
 
-  // The active theme name.
+  /**
+   * The active theme name.
+   */
   protected $theme_name;
 
+  /**
+   *
+   */
   public function __construct($theme_name) {
     $this->theme_name = $theme_name;
   }
 
   /**
    * Find and return the most compatible layout.
-   * 
+   *
    * @return mixed
    */
   public function getCompatibleLayout() {

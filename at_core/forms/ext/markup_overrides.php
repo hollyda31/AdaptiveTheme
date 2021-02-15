@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Generate form elements for the Modify Output settings.
  */
 
@@ -18,7 +19,7 @@ $form['markup_overrides']['markup_overrides_settings'] = [
   '#weight' => 40,
 ];
 
-// Responsive Tables
+// Responsive Tables.
 $form['markup_overrides']['markup_overrides_settings']['responsive-tables'] = [
   '#type' => 'details',
   '#title' => t('Responsive Tables'),
@@ -30,7 +31,7 @@ $form['markup_overrides']['markup_overrides_settings']['responsive-tables']['set
   '#description' => t('Enable the responsive tables plugin. To use apply the "responsive-enabled" class to the table element, e.g. <code>@tableexample</code>. In small screens this will hide the overflow and be horizontally scrollable.', ['@tableexample' => '<table class="responsive-enabled">']),
 ];
 
-// PNG logo
+// PNG logo.
 $form['markup_overrides']['markup_overrides_settings']['png_logo'] = [
   '#type' => 'details',
   '#title' => t('png Logo default'),
@@ -42,7 +43,7 @@ $form['markup_overrides']['markup_overrides_settings']['png_logo']['settings_png
   '#default_value' => theme_get_setting('settings.png_logo'),
 ];
 
-// Breadcrumbs
+// Breadcrumbs.
 $form['markup_overrides']['markup_overrides_settings']['breadcrumb'] = [
   '#type' => 'details',
   '#title' => t('Breadcrumbs'),
@@ -142,14 +143,14 @@ $form['markup_overrides']['markup_overrides_settings']['login-block']['settings_
   '#default_value' => theme_get_setting('settings.login_block_placeholder_labels'),
   '#description' => t('Use html5 placeholder labels instead of real labels.'),
 ];
-// Horizontal login block
+// Horizontal login block.
 $form['markup_overrides']['markup_overrides_settings']['login-block']['settings_horizontal_login_block'] = [
   '#type' => 'checkbox',
   '#title' => t('Horizontal login block'),
   '#default_value' => theme_get_setting('settings.horizontal_login_block'),
   '#description' => t('Enable a horizontal style login block (all elements on one line). This setting automatically removes links.'),
 ];
-// Login block links
+// Login block links.
 $form['markup_overrides']['markup_overrides_settings']['login-block']['settings_login_block_remove_links'] = [
   '#type' => 'checkbox',
   '#title' => t('Remove links'),
@@ -161,7 +162,7 @@ $form['markup_overrides']['markup_overrides_settings']['login-block']['settings_
   ],
 ];
 
-// Comment titles
+// Comment titles.
 $form['markup_overrides']['markup_overrides_settings']['comments'] = [
   '#type' => 'details',
   '#title' => t('Comment Titles'),
@@ -173,7 +174,7 @@ $form['markup_overrides']['markup_overrides_settings']['comments']['settings_com
   '#description' => t('Checking this setting will hide comment titles using element-invisible. Hiding rather than removing titles maintains accessibility and semantic structure while not showing titles to sighted users.'),
 ];
 
-// Feed icons
+// Feed icons.
 $form['markup_overrides']['markup_overrides_settings']['feed-icons'] = [
   '#type' => 'details',
   '#title' => t('Feed Icons'),
@@ -185,30 +186,31 @@ $form['markup_overrides']['markup_overrides_settings']['feed-icons']['settings_v
   '#description' => t('Page views such as the Front page show an RSS feed icon by default, use this setting to remove all page view feed icons.'),
 ];
 
-// Accessibility
+// Accessibility.
 $form['markup_overrides']['markup_overrides_settings']['a11y'] = [
   '#type' => 'details',
   '#title' => t('Accessibility'),
 ];
 
-// Skip link target
+// Skip link target.
 if (!empty(theme_get_setting('settings.skip_link_target'))) {
   $skip_link_setting = Html::escape(theme_get_setting('settings.skip_link_target'));
 }
 else {
-  $skip_link_setting = 'main-content'; // try to provide the most likely match.
+  // Try to provide the most likely match.
+  $skip_link_setting = 'main-content';
 }
 $form['markup_overrides']['markup_overrides_settings']['a11y']['settings_skip_link_target'] = [
   '#type' => 'textfield',
   '#title' => t('Skip to navigation target ID'),
-  '#description' => t('By default the skip link target is <code>@skiplink</code>. If you need to change this do not include the pound symbol.', ['@skiplink' =>$skip_link_setting]),
+  '#description' => t('By default the skip link target is <code>@skiplink</code>. If you need to change this do not include the pound symbol.', ['@skiplink' => $skip_link_setting]),
   '#size' => 60,
   '#maxlength' => 255,
   '#field_prefix' => '#',
   '#default_value' => Html::escape(theme_get_setting('settings.skip_link_target')),
 ];
 
-// Attribution
+// Attribution.
 $form['markup_overrides']['markup_overrides_settings']['attribution'] = [
   '#type' => 'details',
   '#title' => t('Attribution'),

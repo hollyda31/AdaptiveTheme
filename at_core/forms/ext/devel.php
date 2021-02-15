@@ -1,12 +1,13 @@
 <?php
 
 /**
+ * @file
  * Generate form elements for the Devel settings.
  */
 
 use Drupal\Component\Utility\Html;
 
-// Development settings
+// Development settings.
 $form['devel'] = [
   '#type' => 'details',
   '#title' => t('Developer tools'),
@@ -22,7 +23,7 @@ $form['devel']['settings_show_page_suggestions'] = [
   '#default_value' => theme_get_setting('settings.show_page_suggestions', $theme),
 ];
 
-// Window size
+// Window size.
 $form['devel']['settings_show_window_size'] = [
   '#type' => 'checkbox',
   '#title' => t('Show Window Size'),
@@ -30,7 +31,7 @@ $form['devel']['settings_show_window_size'] = [
   '#default_value' => theme_get_setting('settings.show_window_size', $theme),
 ];
 
-// Enable LiveReload
+// Enable LiveReload.
 $form['devel']['live_reload'] = [
   '#type' => 'fieldset',
   '#title' => t('Live Reload'),

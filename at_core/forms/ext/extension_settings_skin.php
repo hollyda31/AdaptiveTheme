@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Generate form elements for the Extension settings for Skin type themes.
  */
 

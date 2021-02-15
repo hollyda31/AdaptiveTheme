@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\Component\Serialization\Yaml;
 
 $theme_info_paths['path']['#markup'] = '<strong>' . t('Theme path') . '</strong>: <span>' . $subtheme_path . '</span>';

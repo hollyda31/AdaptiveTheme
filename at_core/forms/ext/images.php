@@ -1,10 +1,11 @@
 <?php
 
 /**
+ * @file
  * Generate form elements for the Image styles settings.
  */
 
-// Breakpoints
+// Breakpoints.
 $breakpoint_group_images = theme_get_setting('settings.breakpoint_group_images', $theme) ?: '';
 if (empty($breakpoint_group_images)) {
   $breakpoint_group_images = theme_get_setting('settings.breakpoint_group_layout', $theme);
@@ -48,7 +49,7 @@ $form['images']['image-settings']['breakpoint_group']['settings_breakpoint_group
   '#default_value' => $breakpoint_group_images,
 ];
 
-foreach($breakpoints as $group_message_key => $group_message_values)  {
+foreach ($breakpoints as $group_message_key => $group_message_values) {
   if ($group_message_values !== []) {
     foreach ($group_message_values as $breakpoint_message_key => $breakpoint_message_values) {
       $breakpoint_message[$group_message_key][] = '<dt>' . $breakpoint_message_values->getLabel() . ':</dt><dd>' . $breakpoint_message_values->getMediaQuery() . '</dd>';
@@ -69,7 +70,7 @@ if (!empty($entity_types)) {
     $form['images']['image-settings'][$entity_type_key] = [
       '#type' => 'details',
       '#title' => t($entity_type_key),
-      '#collapsed'=> TRUE,
+      '#collapsed' => TRUE,
     ];
 
     foreach ($entity_type_values as $evk => $etv) {
@@ -115,7 +116,7 @@ if (!empty($entity_types)) {
           $form['images']['image-settings'][$entity_type_key][$entity_type_id]['entity_type_' . $entity_type_id]['alignment'][$breakpoint_ia_key]['table_image_align'] = [
             '#type' => 'table',
             '#header' => [t('Display mode'), t('Align'), t('Margin (px)')],
-            //'#header' => [t('Display mode'), t('Align'), t('Margin')],
+            // '#header' => [t('Display mode'), t('Align'), t('Margin')],
             '#empty' => t('No view modes to display'),
             '#attributes' => ['class' => ['image-align-options-table']],
           ];
@@ -136,13 +137,13 @@ if (!empty($entity_types)) {
               $setting = $old_setting;
             }
 
-            // View mode
+            // View mode.
             $form['images']['image-settings'][$entity_type_key][$entity_type_id]['entity_type_' . $entity_type_id]['alignment'][$breakpoint_ia_key]['table_image_align'][$display_mode_id]['view_mode'] = [
               '#type' => 'container',
               '#markup' => '<span>' . $display_mode['label'] . '</span>',
             ];
 
-            // Align options
+            // Align options.
             $form['images']['image-settings'][$entity_type_key][$entity_type_id]['entity_type_' . $entity_type_id]['alignment'][$breakpoint_ia_key]['table_image_align'][$display_mode_id]['options']['settings_image_alignment_' . $entity_type_id . '_' . $breakpoint_ia_key . '_' . $display_mode_id] = [
               '#type'          => 'radios',
               '#default_value' => $setting,
@@ -150,11 +151,11 @@ if (!empty($entity_types)) {
               '#attributes'    => ['class' => ['clearfix']],
             ];
 
-            // Margins
+            // Margins.
             $form['images']['image-settings'][$entity_type_key][$entity_type_id]['entity_type_' . $entity_type_id]['alignment'][$breakpoint_ia_key]['table_image_align'][$display_mode_id]['margins']['settings_image_alignment_' . $entity_type_id . '_' . $breakpoint_ia_key . '_' . $display_mode_id . '_top'] = [
               '#type' => 'number',
               '#title' => t('Top'),
-              //'#field_suffix' => 'px <small>(coverts to em)</small>',
+              // '#field_suffix' => 'px <small>(coverts to em)</small>',
               '#default_value' => theme_get_setting('settings.image_alignment_' . $entity_type_id . '_' . $breakpoint_ia_key . '_' . $display_mode_id . '_top') ?: 0,
               '#attributes' => [
                 'min' => 0,
@@ -180,7 +181,7 @@ if (!empty($entity_types)) {
             $form['images']['image-settings'][$entity_type_key][$entity_type_id]['entity_type_' . $entity_type_id]['alignment'][$breakpoint_ia_key]['table_image_align'][$display_mode_id]['margins']['settings_image_alignment_' . $entity_type_id . '_' . $breakpoint_ia_key . '_' . $display_mode_id . '_bottom'] = [
               '#type' => 'number',
               '#title' => t('Bottom'),
-              //'#field_suffix' => 'px <small>(coverts to em)</small>',
+              // '#field_suffix' => 'px <small>(coverts to em)</small>',
               '#default_value' => theme_get_setting('settings.image_alignment_' . $entity_type_id . '_' . $breakpoint_ia_key . '_' . $display_mode_id . '_bottom') ?: 0,
               '#attributes' => [
                 'min' => 0,
@@ -192,7 +193,7 @@ if (!empty($entity_types)) {
             $form['images']['image-settings'][$entity_type_key][$entity_type_id]['entity_type_' . $entity_type_id]['alignment'][$breakpoint_ia_key]['table_image_align'][$display_mode_id]['margins']['settings_image_alignment_' . $entity_type_id . '_' . $breakpoint_ia_key . '_' . $display_mode_id . '_left'] = [
               '#type' => 'number',
               '#title' => t('Left'),
-              //'#field_suffix' => 'px <small>(coverts to em)</small>',
+              // '#field_suffix' => 'px <small>(coverts to em)</small>',
               '#default_value' => theme_get_setting('settings.image_alignment_' . $entity_type_id . '_' . $breakpoint_ia_key . '_' . $display_mode_id . '_left') ?: 0,
               '#attributes' => [
                 'min' => 0,

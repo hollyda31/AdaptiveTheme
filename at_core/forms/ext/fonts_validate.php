@@ -1,9 +1,13 @@
 <?php
 
 /**
+ * @file
  * Validate fonts form fields.
  */
 
+/**
+ *
+ */
 function at_core_validate_fonts($form, $form_state) {
   $values = $form_state->getValues();
   if (!empty($values['settings_font_google'])) {

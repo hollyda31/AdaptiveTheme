@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Generate form elements for the font settings.
  */
 
@@ -31,7 +32,7 @@ foreach (['google', 'typekit', 'local'] as $webfont_type) {
   if (!empty($wfn)) {
     $wfn_list = explode(PHP_EOL, $wfn);
     foreach ($wfn_list as $wfn_key => $wfn_value) {
-      $wf_name = trim(str_replace(['"', "'",  ','], '', $wfn_value));
+      $wf_name = trim(str_replace(['"', "'", ','], '', $wfn_value));
       $webfont_options[$webfont_type][str_replace(' ', '_', $wf_name)] = ucfirst($wf_name);
     }
   }
@@ -62,19 +63,19 @@ $form['fonts'] = [
   '#group' => 'extension_settings',
 ];
 
-// Font Setup
+// Font Setup.
 $form['fonts']['setup'] = [
   '#type' => 'details',
   '#title' => t('Fonts Setup'),
 ];
 
-// Help
+// Help.
 $form['fonts']['setup']['help'] = [
   '#type' => 'container',
   '#markup' => t('First set the fonts you want to use in your site and save the Extension settings. Then apply fonts to specific elements.'),
 ];
 
-// Font Setup: Websafe stacks
+// Font Setup: Websafe stacks.
 $form['fonts']['setup']['websafe_fonts'] = [
   '#type' => 'details',
   '#title' => t('Websafe fonts'),
@@ -88,7 +89,7 @@ $form['fonts']['setup']['websafe_fonts']['websafe_fonts']['settings_font_websafe
   '#description' => t('Enter one font stack per line. Separate fonts with a comma, quote font names with spaces, e.g <code>"Times New Roman", Times, serif;</code>.'),
 ];
 
-// Font Setup: Google font
+// Font Setup: Google font.
 $form['fonts']['setup']['google_fonts'] = [
   '#type' => 'details',
   '#title' => t('Google fonts'),
@@ -97,7 +98,7 @@ $form['fonts']['setup']['google_fonts'] = [
 $form['fonts']['setup']['google_fonts']['settings_font_google'] = [
   '#type' => 'textarea',
   '#rows' => 3,
-  //'#maxlength' => 1024,
+  // '#maxlength' => 1024,
   '#title' => t('Google font URL'),
   '#default_value' => Xss::filter(theme_get_setting('settings.font_google')),
   '#description' => [
@@ -107,7 +108,7 @@ $form['fonts']['setup']['google_fonts']['settings_font_google'] = [
     '#items' => [
       t('Use the <a href=":google_font_wizard" target="_blank">Google font wizard</a> to select your fonts.', [':google_font_wizard' => 'https://fonts.google.com/']),
       t('Click the "Use" button, then copy/paste the URL from the <em>Standard</em> method, e.g. <code>https://fonts.googleapis.com/css?family=Open+Sans</code>'),
-	  t('If using multiple Google Fonts, make sure your URL reads css instead of css2 and uses a pipe delimiter to separate the fonts, e.g. <code>https://fonts.googleapis.com/css?family=Modak|Parisienne</code>'),
+      t('If using multiple Google Fonts, make sure your URL reads css instead of css2 and uses a pipe delimiter to separate the fonts, e.g. <code>https://fonts.googleapis.com/css?family=Modak|Parisienne</code>'),
       t('Note: always use <code>https</code>, even with <code>http</code> and mixed content websites.'),
     ],
   ],
@@ -120,7 +121,7 @@ $form['fonts']['setup']['google_fonts']['settings_font_google_names'] = [
   '#default_value' => Xss::filter(theme_get_setting('settings.font_google_names')),
 ];
 
-// Font Setup: Typekit
+// Font Setup: Typekit.
 $form['fonts']['setup']['typekit_fonts'] = [
   '#type' => 'details',
   '#title' => t('Typekit fonts'),
@@ -169,14 +170,14 @@ $form['fonts']['setup']['local_fonts']['settings_font_local_names'] = [
   '#default_value' => Xss::filter(theme_get_setting('settings.font_local_names')),
 ];
 
-// Global settings
+// Global settings.
 $form['fonts']['setup']['global_font_settings'] = [
   '#type' => 'details',
   '#title' => t('Global settings'),
   '#description' => t('Set a fallback font and line heights.'),
 ];
 
-// Global settings: Fallback
+// Global settings: Fallback.
 $form['fonts']['setup']['global_font_settings']['settings_font_fallback'] = [
   '#type' => 'select',
   '#title' => t('Fallback font family'),
@@ -191,7 +192,7 @@ $form['fonts']['setup']['global_font_settings']['settings_font_fallback'] = [
   '#description' => t('In the event a font does not load use a generic fallback.'),
 ];
 
-// Global settings: Line heights
+// Global settings: Line heights.
 $form['fonts']['setup']['global_font_settings']['line_height']['settings_font_line_height_multiplier_default'] = [
   '#type' => 'number',
   '#title' => t('Line height (global)'),
@@ -222,13 +223,13 @@ $form['fonts']['setup']['global_font_settings']['line_height']['settings_font_li
   ],
 ];
 
-// Apply Fonts
+// Apply Fonts.
 $form['fonts']['apply'] = [
   '#type' => 'details',
   '#title' => t('Apply Fonts'),
 ];
 
-// Build form
+// Build form.
 foreach ($font_elements as $font_element_key => $font_element_values) {
   $form['fonts']['apply'][$font_element_key] = [
     '#type' => 'details',
@@ -300,7 +301,7 @@ foreach ($font_elements as $font_element_key => $font_element_values) {
     $form['fonts']['apply'][$font_element_key]['settings_font_localfont_' . $font_element_key] = [
       '#type' => 'select',
       '#title' => t('Local font name.'),
-      //'#description' => t('Select a local font to apply to this element.'),
+      // '#description' => t('Select a local font to apply to this element.'),
       '#options' => $webfont_options['local'],
       '#default_value' => isset($local_font_element_key_setting) ? $local_font_element_key_setting : 0,
       '#states' => [
@@ -313,7 +314,7 @@ foreach ($font_elements as $font_element_key => $font_element_values) {
     ];
   }
 
-  // Font size
+  // Font size.
   if ($font_element_key !== 'h1h4' && $font_element_key !== 'h5h6') {
     $form['fonts']['apply'][$font_element_key]['settings_font_size_' . $font_element_key] = [
       '#type' => 'number',
@@ -328,8 +329,8 @@ foreach ($font_elements as $font_element_key => $font_element_values) {
       ],
     ];
   }
-  
-  // Font smoothing
+
+  // Font smoothing.
   $form['fonts']['apply'][$font_element_key]['settings_font_smoothing_' . $font_element_key] = [
     '#type' => 'checkbox',
     '#title' => t('Apply font smoothing'),
@@ -354,7 +355,7 @@ foreach ($font_elements as $font_element_key => $font_element_values) {
   // Show the selectors this applies to.
   $form['fonts']['apply'][$font_element_key]['selector'] = [
     '#type' => 'container',
-    '#markup' => t('Applies to: @selectors' , ['@selectors' => $font_element_values['selector']]),
+    '#markup' => t('Applies to: @selectors', ['@selectors' => $font_element_values['selector']]),
     '#attributes' => ['class' => ['font-selector-list']],
   ];
 }

@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Generate settings for Legacy Browsers.
  */
 
@@ -11,7 +12,7 @@ $form['legacy-browsers'] = [
 ];
 
 // Support legacy browsers
-//----------------------------------------------------------------------
+// ----------------------------------------------------------------------.
 $form['legacy-browsers']['legacy-browser-polyfills'] = [
   '#type' => 'container',
   '#markup' => t('<p>By checking this setting poly-fills will be loaded for IE8 and below:</p>

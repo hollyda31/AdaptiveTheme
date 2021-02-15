@@ -1,13 +1,14 @@
 <?php
 
 /**
+ * @file
  * Generate settings for Mobile blocks.
  */
 
 $mobile_blocks_breakpoint_group = theme_get_setting('settings.mobile_blocks_breakpoint_group', $theme) ?: 'at_core.simple';
 $mobile_blocks_breakpoints = $breakpoints[$mobile_blocks_breakpoint_group];
 
-// Breakpoints
+// Breakpoints.
 foreach ($mobile_blocks_breakpoints as $mbs_key => $mbs_value) {
   $mbs_query = $mbs_value->getMediaQuery();
   $mbs_group_options[$mbs_query] = $mbs_value->getLabel() . ': ' . $mbs_query;
@@ -20,7 +21,7 @@ $form['mobile-blocks'] = [
   '#description' => t('<h3>Mobile Blocks</h3><p>Hide or show blocks in breakpoints (wide, tablet, mobile etc).</p><ol><li>Select a breakpoint group. Stepped breakpoints are recommended.</li><li>Check hide or show to set the blocks visibility in that breakpoint. If using cascading breakpoints you may need to explicitly set visibility for a block in each breakpoint, otherwise unchecked blocks always show.</li></ol></p>'),
 ];
 
-// Breakpoints group
+// Breakpoints group.
 $form['mobile-blocks']['settings_mobile_blocks_breakpoint_group'] = [
   '#type' => 'select',
   '#title' => t('Breakpoint group'),
@@ -28,7 +29,7 @@ $form['mobile-blocks']['settings_mobile_blocks_breakpoint_group'] = [
   '#default_value' => $mobile_blocks_breakpoint_group,
 ];
 
-// Change message
+// Change message.
 $form['mobile-blocks']['mobile_blocks_breakpoint_group_haschanged'] = [
   '#type' => 'container',
   '#markup' => t('<em>Save the extension settings to change the breakpoint group and update breakpoint options.</em>'),
@@ -48,7 +49,7 @@ foreach ($mobile_blocks_breakpoints as $mbs_key => $mbs_value) {
     '#title' => t($mbs_label . ' <small>' . $mbs_query . '</small>'),
   ];
 
-  // Blocks
+  // Blocks.
   if (!empty($theme_blocks)) {
     foreach ($theme_blocks as $block_key => $block_values) {
       $block_id = $block_values->id();
@@ -75,7 +76,7 @@ foreach ($mobile_blocks_breakpoints as $mbs_key => $mbs_value) {
       $form['mobile-blocks']['breakpoints']['bp' . $mbs_label][$block_plugin] = [
         '#type' => 'fieldset',
         '#title' => $block_label,
-        '#markup' => '<div class="mobile-blocks-title layouts-column-threequarters align-left"><h4 class="h4">' . $block_label . '</h4><small><b>Block id:</b> ' . $block_key . '</small> <br><small><b>Plugin id:</b> ' .  $plugin_id . '</small></div>',
+        '#markup' => '<div class="mobile-blocks-title layouts-column-threequarters align-left"><h4 class="h4">' . $block_label . '</h4><small><b>Block id:</b> ' . $block_key . '</small> <br><small><b>Plugin id:</b> ' . $plugin_id . '</small></div>',
         '#attributes' => ['class' => ['clearfix']],
       ];
 
@@ -86,7 +87,7 @@ foreach ($mobile_blocks_breakpoints as $mbs_key => $mbs_value) {
 
       $form['mobile-blocks']['breakpoints']['bp' . $mbs_label][$block_plugin]['container']['settings_mobile_block_show_' . 'bp' . $mbs_label . '_' . $block_plugin] = [
         '#type' => 'checkbox',
-        '#title' =>  t('Show'),
+        '#title' => t('Show'),
         '#default_value' => $default_value_show,
         '#states' => [
           'disabled' => ['input[name="settings_mobile_block_hide_' . 'bp' . $mbs_label . '_' . $block_plugin . '"]' => ['checked' => TRUE]],
@@ -95,7 +96,7 @@ foreach ($mobile_blocks_breakpoints as $mbs_key => $mbs_value) {
 
       $form['mobile-blocks']['breakpoints']['bp' . $mbs_label][$block_plugin]['container']['settings_mobile_block_hide_' . 'bp' . $mbs_label . '_' . $block_plugin] = [
         '#type' => 'checkbox',
-        '#title' =>  t('Hide'),
+        '#title' => t('Hide'),
         '#default_value' => $default_value_hide,
         '#states' => [
           'disabled' => ['input[name="settings_mobile_block_show_' . 'bp' . $mbs_label . '_' . $block_plugin . '"]' => ['checked' => TRUE]],

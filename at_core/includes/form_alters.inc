@@ -1,11 +1,16 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\at_core\Theme\ThemeConfig;
 use Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_form_alter().
+ *
  * @param $form
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  * @param $form_id
@@ -61,9 +66,9 @@ function at_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
           else {
             $form['#attributes']['class'][] = 'submit-is-visible';
             // Submit value. This could be used if the button has a visible value (instead of an icon).
-            //if (isset($config['search_block_submit_value']) && !empty($config['search_block_submit_value'])) {
-              //$form['actions']['submit']['#value'] = Html::escape($config['search_block_submit_value']);
-            //}
+            // if (isset($config['search_block_submit_value']) && !empty($config['search_block_submit_value'])) {
+            // $form['actions']['submit']['#value'] = Html::escape($config['search_block_submit_value']);
+            // }.
           }
           // Placeholders.
           if (isset($config['search_block_placeholder_text']) && !empty($config['search_block_placeholder_text'])) {
@@ -77,8 +82,8 @@ function at_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
       // This is cool for browsers that support it, but it's hard to theme,
       // really it needs the modernizr test "input[search] search event" so we
       // can theme webkit on Mac without messing with other browsers.
-      //$form['keys']['#attributes']['results'] = 5;
-      //$form['keys']['#attributes']['autosave'] = $theme . '-search-results-form-submissions';
+      // $form['keys']['#attributes']['results'] = 5;
+      // $form['keys']['#attributes']['autosave'] = $theme . '-search-results-form-submissions';.
       break;
 
     case 'search_form':
@@ -143,8 +148,8 @@ function at_core_form_node_form_alter(&$form, FormStateInterface $form_state) {
       '#type' => 'item',
       '#wrapper_attributes' => ['class' => ['entity-meta__author']],
       /*'#markup' => '<h4 class="label inline">' . t('Author') . '</h4> ' . $node->getOwner()->getUsername(),*/
-	  //'#markup' => '<h4 class="label inline">' . t('Author') . '</h4> ' . $node->getOwner()->​getAccountName(),
-	  '#markup' => '<h4 class="label inline">' . t('Author') . '</h4> ' . $node->getOwner()->getDisplayName(),
+    // '#markup' => '<h4 class="label inline">' . t('Author') . '</h4> ' . $node->getOwner()->​getAccountName(),
+      '#markup' => '<h4 class="label inline">' . t('Author') . '</h4> ' . $node->getOwner()->getDisplayName(),
     ],
   ];
 

@@ -1,11 +1,17 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Tags;
 
 /**
  * Clean away twig debugging output, it breaks some stuff.
+ *
  * @param $variable
+ *
  * @return mixed
  */
 function _at_core_cleanup_twig_debug_output($variable) {
@@ -15,7 +21,9 @@ function _at_core_cleanup_twig_debug_output($variable) {
 
 /**
  * Helper function for layout plugin attributes.
+ *
  * @param $variables
+ *
  * @return mixed
  */
 function _at_core_layout_plugin_attributes($variables) {
@@ -32,7 +40,7 @@ function _at_core_layout_plugin_attributes($variables) {
     $entity_type = $variables['content']['#entity_type'];
     $bundle = $variables['content']['#bundle'];
     $view_mode = $variables['content']['#view_mode'];
-    $id = $variables['content']['#'. $entity_type]->id();
+    $id = $variables['content']['#' . $entity_type]->id();
 
     $entity_classes = !empty($variables['content']['#ds_configuration']['layout']['entity_classes']) ? $variables['content']['#ds_configuration']['layout']['entity_classes'] : '';
     if ($entity_classes !== 'no_classes') {
@@ -69,7 +77,7 @@ function _at_core_layout_plugin_attributes($variables) {
       if (!empty($node->isSticky())) {
         $classes[] = 'node--sticky';
       }
-      if (empty($node->isPublished()))  {
+      if (empty($node->isPublished())) {
         $classes[] = 'node--unpublished';
       }
     }
@@ -91,13 +99,13 @@ function _at_core_layout_plugin_attributes($variables) {
     }
   }
 
-  // Panels
+  // Panels.
   if (isset($variables['content']['#page_variant'])) {
     $classes[] = 'panels-page';
     $classes[] = 'panels-page--' . Html::cleanCssIdentifier($variables['content']['#page_variant']->get('page'));
   }
 
-  // Global classes
+  // Global classes.
   $layout = 'none';
   // Layout plugin contrib module, Drupal core 8.2.x and below.
   if (isset($variables['layout']) && is_array($variables['layout']) && isset($variables['layout']['id'])) {

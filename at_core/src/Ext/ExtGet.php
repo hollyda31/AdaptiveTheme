@@ -8,6 +8,9 @@ use Drupal\block_content\Entity\BlockContentType;
 use Drupal\paragraphs\Entity\ParagraphsType;
 use Drupal\image\Entity\ImageStyle;
 
+/**
+ *
+ */
 class ExtGet {
 
   /**
@@ -37,7 +40,7 @@ class ExtGet {
         $breakpoints['breakpoints'][$group_key] = \Drupal::service('breakpoint.manager')->getBreakpointsByGroup($group_key);
       }
 
-      foreach($breakpoints['breakpoints'] as $group => $breakpoint_values)  {
+      foreach ($breakpoints['breakpoints'] as $group => $breakpoint_values) {
         if ($breakpoint_values !== []) {
           $breakpoints['breakpoint_options'][$group] = $group;
         }
@@ -87,7 +90,7 @@ class ExtGet {
 
     if (\Drupal::moduleHandler()->moduleExists('node') === TRUE) {
       $view_modes['node'] = \Drupal::service('entity_display.repository')->getViewModes('node');
-      // Unset unwanted view modes
+      // Unset unwanted view modes.
       unset($view_modes['node']['rss']);
       unset($view_modes['node']['search_index']);
       unset($view_modes['node']['search_result']);
@@ -147,4 +150,5 @@ class ExtGet {
 
     return $sass_variables;
   }
+
 }

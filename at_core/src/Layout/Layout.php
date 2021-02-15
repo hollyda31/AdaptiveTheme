@@ -4,6 +4,9 @@ namespace Drupal\at_core\Layout;
 
 use Symfony\Component\Yaml\Parser;
 
+/**
+ *
+ */
 class Layout {
 
   protected $theme_name;
@@ -29,6 +32,7 @@ class Layout {
    * looks for cached config first, if none we parse the respective yml file.
    *
    * @param $type
+   *
    * @return array|mixed
    */
   public function LayoutConfig($type) {

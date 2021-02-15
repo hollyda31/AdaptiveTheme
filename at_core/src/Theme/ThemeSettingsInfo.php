@@ -57,6 +57,7 @@ class ThemeSettingsInfo extends ThemeInfo {
    *
    * @param string $key
    *   A string that maps to a key within the theme settings data.
+   *
    * @return mixed
    *   The info data that was requested.
    */
@@ -102,14 +103,15 @@ class ThemeSettingsInfo extends ThemeInfo {
    * as used in theme-settings.php for the theme Generator.
    *
    * @param $machine_name
-   * @return boolean
+   *
+   * @return bool
    */
   public function themeNameExists($machine_name) {
     $result = FALSE;
     if (array_key_exists($machine_name, $this->data)) {
       $result = TRUE;
     }
-    
+
     return $result;
   }
 

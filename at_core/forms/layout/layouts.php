@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Generate form elements for the Layout settings.
  */
 
@@ -13,11 +14,11 @@ $layout_compatible_data = $layout_data->getCompatibleLayout();
 $layout_config = $layout_compatible_data['layout_config'];
 $css_config = $layout_compatible_data['css_config'];
 
-// Breakpoints
+// Breakpoints.
 $breakpoints_group_layout = theme_get_setting('settings.breakpoint_group_layout', $theme);
 $layout_breakpoints = $breakpoints[$breakpoints_group_layout];
 
-// Template suggestions
+// Template suggestions.
 $template_suggestions = [];
 $template_suggestions['page'] = 'page';
 
@@ -38,7 +39,7 @@ $layouts_form_open = theme_get_setting('settings.layouts_form_open', $theme);
 $form['layouts'] = [
   '#type' => 'details',
   '#title' => t('Layouts'),
-  '#open'=> $layouts_form_open,
+  '#open' => $layouts_form_open,
   '#attributes' => ['class' => ['clearfix']],
   '#weight' => -200,
 ];
@@ -69,7 +70,7 @@ $form['layouts']['layouts-enable-container']['settings_layouts_enable'] = [
 
 //
 // Layout SELECT
-// ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------.
 
 $form['layouts']['layout_select'] = [
   '#type' => 'fieldset',
@@ -131,7 +132,7 @@ foreach ($template_suggestions as $suggestion_key => $suggestions_name) {
         $group_class = Html::cleanCssIdentifier($theme . ' ' . $suggestion_key . ' ' . $breakpoint_layout_key);
         $row_count = count($layout_config['rows']);
 
-        //kint($group_class);
+        // kint($group_class);
 
         $form['layouts']['layout_select'][$suggestion_key][$breakpoint_layout_key]['table_layout_settings'] = [
           '#type' => 'table',
@@ -142,7 +143,7 @@ foreach ($template_suggestions as $suggestion_key => $suggestions_name) {
               'action' => 'order',
               'relationship' => 'sibling',
               'group' => $group_class,
-              //'hidden' => TRUE,
+              // 'hidden' => TRUE,
             ],
           ],
           '#attributes' => [
@@ -176,11 +177,12 @@ foreach ($template_suggestions as $suggestion_key => $suggestions_name) {
             $row_weight = ++$rw;
           }
 
-          // CSS files
+          // CSS files.
           foreach ($css_config['css'] as $css_key => $css_values) {
             if ($css_values['regions'] == $reg_count[$row_key]) {
               foreach ($css_values['files'] as $css_file) {
-                $css_options[$row_key][$css_file] =  str_replace('-', ' ', $css_file); // convert to associative array, we need the key
+                // Convert to associative array, we need the key.
+                $css_options[$row_key][$css_file] = str_replace('-', ' ', $css_file);
               }
             }
           }
@@ -195,7 +197,7 @@ foreach ($template_suggestions as $suggestion_key => $suggestions_name) {
             $row_label = ucfirst(str_replace('_', ' ', $row_key));
 
             if ($reg_count[$row_key] > 1) {
-              for ($i=0; $i<$reg_count[$row_key]; $i++) {
+              for ($i = 0; $i < $reg_count[$row_key]; $i++) {
                 $regions_markup[$row_key][] = '<div class="l-r region"><span>R' . $reg_num++ . '</span></div>';
               }
               $markup[$row_key] = implode('', $regions_markup[$row_key]);
@@ -222,7 +224,7 @@ foreach ($template_suggestions as $suggestion_key => $suggestions_name) {
               '#options' => $css_options[$row_key],
               '#default_value' => $row_default_value,
               '#attributes' => ['class' => ['row-layout-select']],
-              //'#states' => ['disabled' => ['input[name="table[' . $row_key . '][hide][settings_' . $suggestion_key . '_' . $breakpoint_layout_key . '_' . $row_key . '_hide]"' => ['checked' => TRUE]]],
+              // '#states' => ['disabled' => ['input[name="table[' . $row_key . '][hide][settings_' . $suggestion_key . '_' . $breakpoint_layout_key . '_' . $row_key . '_hide]"' => ['checked' => TRUE]]],
             ];
 
             $form['layouts']['layout_select'][$suggestion_key][$breakpoint_layout_key]['table_layout_settings'][$row_key]['layout']['layout_preview'] = [
@@ -269,7 +271,7 @@ $form['layouts']['layout_select']['suggestions'] = [
 ];
 
 // Suggestions input and help.
-//$suggestion_plugin_message = isset($default_plugin) ? $default_plugin : '-- not set --';
+// $suggestion_plugin_message = isset($default_plugin) ? $default_plugin : '-- not set --';.
 $form['layouts']['layout_select']['suggestions']['ts_name'] = [
   '#type' => 'textfield',
   '#size' => 20,
@@ -289,7 +291,7 @@ $form['layouts']['layout_select']['suggestions']['ts_name'] = [
 ];
 
 // Layout OPTIONS
-// ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------.
 $form['layouts']['adv_options'] = [
   '#type' => 'fieldset',
   '#title' => t('Options'),
@@ -317,7 +319,7 @@ $form['layouts']['adv_options']['breakpoint_group']['settings_breakpoint_group_l
   '#default_value' => $breakpoints_group_layout,
 ];
 
-foreach($breakpoints as $group_message_key => $group_message_values)  {
+foreach ($breakpoints as $group_message_key => $group_message_values) {
   if ($group_message_values !== []) {
     foreach ($group_message_values as $breakpoint_message_key => $breakpoint_message_values) {
       $breakpoint_message[$group_message_key][] = '<dt>' . $breakpoint_message_values->getLabel() . ':</dt><dd>' . $breakpoint_message_values->getMediaQuery() . '</dd>';
@@ -332,7 +334,7 @@ foreach($breakpoints as $group_message_key => $group_message_values)  {
   }
 }
 
-// Change message
+// Change message.
 $form['layouts']['adv_options']['breakpoint_group']['layouts_breakpoint_group_haschanged'] = [
   '#type' => 'container',
   '#markup' => t('<em>Save the layout settings to change the breakpoint group and update the layout breakpoints.</em>'),
@@ -449,7 +451,7 @@ $form['layouts']['adv_options']['backups']['settings_enable_backups'] = [
   '#type' => 'checkbox',
   '#title' => t('Enable backups'),
   '#default_value' => theme_get_setting("settings.enable_backups", $theme),
-  //'#description' => t('Warning: un-checking this option will disable backups.'),
+  // '#description' => t('Warning: un-checking this option will disable backups.'),
 ];
 
 // Submit button for layouts.
@@ -461,11 +463,11 @@ $form['layouts']['actions'] = [
 $form['layouts']['actions']['submit'] = [
   '#type' => 'submit',
   '#value' => t('Save layout settings'),
-  '#validate'=> ['at_core_validate_layouts'],
-  '#submit'=> ['at_core_submit_layouts'],
+  '#validate' => ['at_core_validate_layouts'],
+  '#submit' => ['at_core_submit_layouts'],
   '#button_type' => 'primary',
 ];
 
 // Layout submit handlers.
-include_once(drupal_get_path('theme', 'at_core') . '/forms/layout/layouts_validate.php');
-include_once(drupal_get_path('theme', 'at_core') . '/forms/layout/layouts_submit.php');
+include_once drupal_get_path('theme', 'at_core') . '/forms/layout/layouts_validate.php';
+include_once drupal_get_path('theme', 'at_core') . '/forms/layout/layouts_submit.php';

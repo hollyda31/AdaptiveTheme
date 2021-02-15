@@ -1,12 +1,16 @@
 <?php
 
 /**
+ * @file
  * Output formatted CSS for fonts.
  */
 
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\File\FileSystemInterface;
 
+/**
+ *
+ */
 function at_core_submit_fonts($values, $generated_files_path) {
 
   // Websafe fonts.
@@ -17,7 +21,7 @@ function at_core_submit_fonts($values, $generated_files_path) {
     $websafe_fonts = '';
   }
 
-  // Local fonts
+  // Local fonts.
   if (isset($values['settings_font_local'])) {
     $local_fonts = "\n\n" . $values['settings_font_local'] . "\n";
   }
@@ -28,7 +32,7 @@ function at_core_submit_fonts($values, $generated_files_path) {
   // Elements to apply fonts to.
   $font_elements = font_elements();
 
-  // Fallback family
+  // Fallback family.
   $fallback_font_family = 'sans-serif';
   if (isset($values['settings_font_fallback'])) {
     $fallback_font_family = str_replace('_', '-', $values['settings_font_fallback']);
@@ -36,7 +40,8 @@ function at_core_submit_fonts($values, $generated_files_path) {
 
   // Initialize some variables.
   $fonts = [];
-  $base_size = 16; // 16px default
+  // 16px default
+  $base_size = 16;
   $headings = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
 
   // Inject config settings for web-fonts.
@@ -52,13 +57,14 @@ function at_core_submit_fonts($values, $generated_files_path) {
 
     // Reset the selectors variable if we have custom selectors.
     if ($font_key == 'custom_selectors' && !empty($values['settings_font_custom_selectors']) && !empty($values['settings_custom_selectors'])) {
-      $fonts[$font_key]['selectors'] = $values['settings_custom_selectors']; // ? $values['settings_custom_selectors'] : 'ruby ruby'
+      // ? $values['settings_custom_selectors'] : 'ruby ruby'
+      $fonts[$font_key]['selectors'] = $values['settings_custom_selectors'];
     }
 
     // Size/Line height.
     if (!empty($values['settings_font_size_' . $font_key])) {
 
-      //$base_size = $values['settings_font_size_base'] ? $values['settings_font_size_base'] : $base_size;
+      // $base_size = $values['settings_font_size_base'] ? $values['settings_font_size_base'] : $base_size;
       $px_size = $values['settings_font_size_' . $font_key];
       $rem_size = $values['settings_font_size_' . $font_key] / $base_size;
 
@@ -69,7 +75,7 @@ function at_core_submit_fonts($values, $generated_files_path) {
       }
 
       if ($font_key == 'base') {
-        $fonts[$font_key]['size'] = ' font-size: ' . 100 * ($px_size/$base_size) . '%;';
+        $fonts[$font_key]['size'] = ' font-size: ' . 100 * ($px_size / $base_size) . '%;';
         $fonts[$font_key]['line_height'] = ' line-height: ' . $line_height . 'em;';
       }
       // All other elements.
@@ -163,7 +169,7 @@ function at_core_submit_fonts($values, $generated_files_path) {
         }
 
         if (isset($font_values['smoothing'])) {
-          $font_style .= 	$font_values['smoothing'];
+          $font_style .= $font_values['smoothing'];
         }
 
         $font_style .= ' }';

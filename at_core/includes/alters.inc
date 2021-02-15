@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ */
+
+use Drupal\Core\Asset\AttachedAssetsInterface;
 use Symfony\Component\Yaml\Parser;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Xss;
@@ -46,18 +51,18 @@ function at_core_page_attachments_alter(array &$page) {
 
   // Load at messages JS.
   // TODO this is currently disabled, it's very complex and we need to review the usefulness vs the performance issues.
-//  $page['#attached']['library'][] = 'at_core/at.status_messages';
+  //  $page['#attached']['library'][] = 'at_core/at.status_messages';.
 
   // Attach the JS layout script. We run this to cleanup potentially
   // incorrect layout classes in the markup due to placeholders.
   // See: https://www.drupal.org/node/953034
   // TODO this is currently disabled, it's very complex and we need to review the usefulness vs the performance issues.
-//  if (isset($config['layouts_enable']) && $config['layouts_enable'] === 1) {
-//    // Never run on admin pages, it may cause issues with theme setting pages or module forms.
-//    if (\Drupal::service('router.admin_context')->isAdminRoute(\Drupal::routeMatch()->getRouteObject()) == FALSE) {
-//      $page['#attached']['library'][] = 'at_core/at.layout';
-//    }
-//  }
+  //  if (isset($config['layouts_enable']) && $config['layouts_enable'] === 1) {
+  //    // Never run on admin pages, it may cause issues with theme setting pages or module forms.
+  //    if (\Drupal::service('router.admin_context')->isAdminRoute(\Drupal::routeMatch()->getRouteObject()) == FALSE) {
+  //      $page['#attached']['library'][] = 'at_core/at.layout';
+  //    }
+  //  }.
 
   // Attach Drupal Core module dependant libraries.
   // These libraries are declared in your themeName.libraries.yml and we only
@@ -75,10 +80,10 @@ function at_core_page_attachments_alter(array &$page) {
   $theme_libraries = \Drupal::service('library.discovery')->getLibrariesByExtension($theme['provider']);
   foreach ($module_libraries as $module_library) {
     if (array_key_exists($module_library, $theme_libraries) && \Drupal::moduleHandler()->moduleExists($module_library) === TRUE) {
-      $page['#attached']['library'][] = $theme['provider'] . '/'. $module_library;
+      $page['#attached']['library'][] = $theme['provider'] . '/' . $module_library;
     }
   }
-  // base theme libs.
+  // Base theme libs.
   if (isset($base_themes)) {
     foreach ($base_themes as $base_key => $base_values) {
       $base_theme_libraries = \Drupal::service('library.discovery')->getLibrariesByExtension($base_key);
@@ -99,7 +104,7 @@ function at_core_page_attachments_alter(array &$page) {
         // BC for older sub-themes that may have info file entires that mess up Mimic.
         $mimic_good_to_go = TRUE;
 
-        // TODO check mimic
+        // TODO check mimic.
         if (isset($theme['provider']['info']['ckeditor_stylesheets'])) {
           $mimic_good_to_go = FALSE;
         }
@@ -143,7 +148,7 @@ function at_core_page_attachments_alter(array &$page) {
       }
     }
 
-    // Mobile blocks
+    // Mobile blocks.
     if (isset($config['enable_mobile_blocks']) && $config['enable_mobile_blocks'] === 1) {
       if (file_exists($generated_files_path . '/mobile-blocks.css')) {
         $page['#attached']['library'][] = $theme['provider'] . '/mobile_blocks';
@@ -157,10 +162,10 @@ function at_core_page_attachments_alter(array &$page) {
       }
     }
 
-    // Markup Overrides
+    // Markup Overrides.
     if (isset($config['enable_markup_overrides']) && $config['enable_markup_overrides'] === 1) {
 
-      // Responsive tables
+      // Responsive tables.
       if (isset($config['responsive_tables']) && $config['responsive_tables'] === 1) {
         $page['#attached']['library'][] = $theme['provider'] . '/responsive_tables';
       }
@@ -182,7 +187,7 @@ function at_core_page_attachments_alter(array &$page) {
     // Devel assets.
     if (isset($config['enable_devel']) && $config['enable_devel'] === 1) {
 
-      // Attach Windowsize library
+      // Attach Windowsize library.
       if (isset($config['show_window_size']) && $config['show_window_size'] === 1) {
         $page['#attached']['library'][] = 'at_core/at.windowsize';
       }
@@ -207,7 +212,7 @@ function at_core_page_attachments_alter(array &$page) {
         $page['#attached']['library'][] = 'at_core/at.devel_nuke_toolbar';
       }
 
-      // Live Reload
+      // Live Reload.
       if (isset($config['enable_live_reload']) && $config['enable_live_reload'] === 1) {
         $page['#attached']['library'][] = 'at_core/at.livereload';
       }
@@ -222,7 +227,7 @@ function at_core_page_attachments_alter(array &$page) {
       }
     }
 
-    // Load slideshow files
+    // Load slideshow files.
     if (isset($config['enable_slideshows']) && $config['enable_slideshows'] === 1) {
 
       // Get config settings and jam them into drupalSettings.
@@ -253,7 +258,8 @@ function at_core_page_attachments_alter(array &$page) {
           'animationloop',
           'reverse',
           'randomize',
-          'autostart', // Flexslider calls this "slideshow"
+        // Flexslider calls this "slideshow".
+          'autostart',
           'initdelay',
           'easing',
           'usecss',
@@ -268,19 +274,19 @@ function at_core_page_attachments_alter(array &$page) {
         $slider_settings = [];
         for ($i = 0; $i < $config['slideshow_count']; $i++) {
 
-          // Set a key
+          // Set a key.
           $ss_key = Html::cleanCssIdentifier($theme['provider'] . '-slideshow-' . $i);
 
           if (isset($config['slideshow_' . $i . '_enable']) && $config['slideshow_' . $i . '_enable'] === 1) {
 
-            // Basic settings
+            // Basic settings.
             foreach ($basic_slider_settings as $basic_slider_setting) {
               if (isset($config['slideshow_' . $i . '_' . $basic_slider_setting])) {
                 $slider_settings[$ss_key][$basic_slider_setting] = $config['slideshow_' . $i . '_' . $basic_slider_setting];
               }
             }
 
-            // As Carousel
+            // As Carousel.
             if (isset($config['slideshow_' . $i . '_as_carousel']) && $config['slideshow_' . $i . '_as_carousel'] === 1) {
               foreach ($carousel_settings as $carousel_setting) {
                 if (isset($config['slideshow_' . $i . '_' . $carousel_setting])) {
@@ -292,7 +298,7 @@ function at_core_page_attachments_alter(array &$page) {
               $slider_settings[$ss_key]['direction'] = 'horizonal';
             }
 
-            // Advanced options
+            // Advanced options.
             foreach ($advanced_slider_settings as $advanced_slider_setting) {
               if (isset($config['slideshow_' . $i . '_' . $advanced_slider_setting])) {
                 $slider_settings[$ss_key][$advanced_slider_setting] = $config['slideshow_' . $i . '_' . $advanced_slider_setting];
@@ -352,12 +358,12 @@ function at_core_page_attachments_alter(array &$page) {
     elseif ($theme['type'] === 'adaptive_skin') {
       // In skin themes the provider is always the theme base.
       $responsive_menu_library_provider = $theme['base'];
-      // skin theme has enabled responsive menus?
+      // Skin theme has enabled responsive menus?
       if (isset($theme['config_skin']['enable_responsive_menus']) && $theme['config_skin']['enable_responsive_menus'] === 1) {
         $responsive_menu_is_enabled = TRUE;
         $responsive_menu_config = $theme['config_skin'];
       }
-      // base theme has enabled responsive menus?
+      // Base theme has enabled responsive menus?
       elseif (isset($config['enable_responsive_menus']) && $config['enable_responsive_menus'] === 1) {
         $responsive_menu_is_enabled = TRUE;
         $responsive_menu_config = $config;
@@ -375,7 +381,7 @@ function at_core_page_attachments_alter(array &$page) {
         $click_menus_enabled = TRUE;
       }
 
-      // Breakpoint
+      // Breakpoint.
       if (isset($responsive_menu_config['responsive_menu_breakpoint'])) {
         $responsive_menu_settings['bp'] = $responsive_menu_config['responsive_menu_breakpoint'];
       }
@@ -422,7 +428,7 @@ function at_core_page_attachments_alter(array &$page) {
         $page['#attached']['library'][] = "$responsive_menu_library_provider/responsive_menus_accordion";
         $page['#attached']['library'][] = "at_core/at.accordion";
       }
-      //$page['#attached']['library'][] = "at_core/at.orientationchangereload";
+      // $page['#attached']['library'][] = "at_core/at.orientationchangereload";
 
       // Attach JS settings.
       $page['#attached']['drupalSettings'][$theme['name']]['at_responsivemenus'] = $responsive_menu_settings;
@@ -452,7 +458,7 @@ function at_core_page_attachments_alter(array &$page) {
  *
  * @see \Drupal\Core\Asset\AssetResolver
  */
-function at_core_js_settings_alter(array &$settings, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
+function at_core_js_settings_alter(array &$settings, AttachedAssetsInterface $assets) {
   $mimic = FALSE;
   $mimic_good_to_go = TRUE;
 
@@ -632,6 +638,7 @@ function at_core_library_info_alter(&$libraries, $extension) {
 
 /**
  * Implements hook_theme_registry_alter().
+ *
  * @param $theme_registry
  */
 function at_core_theme_registry_alter(&$theme_registry) {
@@ -651,13 +658,15 @@ function at_core_theme_registry_alter(&$theme_registry) {
 /**
  * Alter the element type information returned from modules.
  * TODO Review/remove after https://www.drupal.org/node/2409083 lands.
+ *
  * @param array $info
+ *
  * @see \Drupal\Core\Render\ElementInfoManager
  * @see \Drupal\Core\Render\Element\ElementInterface
  */
 function at_core_element_info_alter(array &$info) {
   // Remove the html5 shiv. Add it later if legacy browser support is enabled.
-  //if (in_array('core/html5shiv', $info['html']['#attached']['library'])) {
-    //$info['html']['#attached']['library'] = array_merge(array_diff($info['html']['#attached']['library'], ['core/html5shiv']));
-  //}
+  // if (in_array('core/html5shiv', $info['html']['#attached']['library'])) {
+  // $info['html']['#attached']['library'] = array_merge(array_diff($info['html']['#attached']['library'], ['core/html5shiv']));
+  // }.
 }

@@ -10,15 +10,24 @@ use Drupal\Component\Utility\Html;
 use Drupal\at_core\Theme\ThemeInfo;
 use Drupal\Core\File\FileSystemInterface;
 
+/**
+ *
+ */
 class LayoutSubmit {
 
-  // The active theme name.
+  /**
+   * The active theme name.
+   */
   protected $theme_name;
 
-  // Form state values.
+  /**
+   * Form state values.
+   */
   protected $values;
 
-  // Constructor
+  /**
+   * Constructor.
+   */
   public function __construct($theme_name, $values) {
     $this->theme_name = $theme_name;
     $layout_data = new LayoutCompatible($this->theme_name);
@@ -61,32 +70,32 @@ class LayoutSubmit {
     foreach ($this->form_values['settings_suggestions'] as $suggestion_key => $suggestions_name) {
       foreach ($breakpoints_group as $breakpoint_id => $breakpoint_value) {
         foreach ($this->layout_config['rows'] as $row_key => $row_values) {
-          // match the key set in the form, hacking on get label
+          // Match the key set in the form, hacking on get label.
           $breakpoint_layout_key = strtolower(preg_replace("/\W|_/", "", $breakpoint_value->getLabel()));
           $css_data[$suggestion_key][$breakpoint_layout_key]['query'] = $breakpoint_value->getMediaQuery();
 
           // Layout with impossible BC.
-          if (!empty($this->form_values['settings_'. $suggestion_key .'_'. $breakpoint_layout_key .'_'. $row_key])) {
-            $css_data[$suggestion_key][$breakpoint_layout_key]['rows'][$row_key] = $this->form_values['settings_'. $suggestion_key .'_'. $breakpoint_layout_key .'_'. $row_key];
+          if (!empty($this->form_values['settings_' . $suggestion_key . '_' . $breakpoint_layout_key . '_' . $row_key])) {
+            $css_data[$suggestion_key][$breakpoint_layout_key]['rows'][$row_key] = $this->form_values['settings_' . $suggestion_key . '_' . $breakpoint_layout_key . '_' . $row_key];
           }
-          else if (!empty($this->form_values['table_layout_settings'][$row_key]['layout']['settings_'. $suggestion_key .'_'. $breakpoint_layout_key .'_'. $row_key])) {
-            $css_data[$suggestion_key][$breakpoint_layout_key]['rows'][$row_key]['layout'] = $this->form_values['table_layout_settings'][$row_key]['layout']['settings_'. $suggestion_key .'_'. $breakpoint_layout_key .'_'. $row_key];
+          elseif (!empty($this->form_values['table_layout_settings'][$row_key]['layout']['settings_' . $suggestion_key . '_' . $breakpoint_layout_key . '_' . $row_key])) {
+            $css_data[$suggestion_key][$breakpoint_layout_key]['rows'][$row_key]['layout'] = $this->form_values['table_layout_settings'][$row_key]['layout']['settings_' . $suggestion_key . '_' . $breakpoint_layout_key . '_' . $row_key];
           }
           else {
             $css_data[$suggestion_key][$breakpoint_layout_key]['rows'][$row_key]['layout'] = 'not_set';
           }
 
           // Row order (weight).
-          if (!empty($this->form_values['table_layout_settings'][$row_key]['weight']['settings_'. $suggestion_key .'_'. $breakpoint_layout_key .'_'. $row_key . '_weight'])) {
-            $css_data[$suggestion_key][$breakpoint_layout_key]['rows'][$row_key]['weight'] = $this->form_values['table_layout_settings'][$row_key]['weight']['settings_'. $suggestion_key .'_'. $breakpoint_layout_key .'_'. $row_key . '_weight'];
+          if (!empty($this->form_values['table_layout_settings'][$row_key]['weight']['settings_' . $suggestion_key . '_' . $breakpoint_layout_key . '_' . $row_key . '_weight'])) {
+            $css_data[$suggestion_key][$breakpoint_layout_key]['rows'][$row_key]['weight'] = $this->form_values['table_layout_settings'][$row_key]['weight']['settings_' . $suggestion_key . '_' . $breakpoint_layout_key . '_' . $row_key . '_weight'];
           }
           else {
             $css_data[$suggestion_key][$breakpoint_layout_key]['rows'][$row_key]['weight'] = 1;
           }
 
           // Row hidden (hide).
-          if (!empty($this->form_values['table_layout_settings'][$row_key]['hide']['settings_'. $suggestion_key .'_'. $breakpoint_layout_key .'_'. $row_key . '_hide'])) {
-            $css_data[$suggestion_key][$breakpoint_layout_key]['rows'][$row_key]['hide'] = $this->form_values['table_layout_settings'][$row_key]['hide']['settings_'. $suggestion_key .'_'. $breakpoint_layout_key .'_'. $row_key . '_hide'];
+          if (!empty($this->form_values['table_layout_settings'][$row_key]['hide']['settings_' . $suggestion_key . '_' . $breakpoint_layout_key . '_' . $row_key . '_hide'])) {
+            $css_data[$suggestion_key][$breakpoint_layout_key]['rows'][$row_key]['hide'] = $this->form_values['table_layout_settings'][$row_key]['hide']['settings_' . $suggestion_key . '_' . $breakpoint_layout_key . '_' . $row_key . '_hide'];
           }
           else {
             $css_data[$suggestion_key][$breakpoint_layout_key]['rows'][$row_key]['hide'] = 0;
@@ -162,7 +171,7 @@ class LayoutSubmit {
           if (isset($this->form_values['settings_max_width_value_' . $row_key]) && !empty($this->form_values['settings_max_width_value_' . $row_key])) {
             $max_width_rows[$row_key]['value'] = trim($this->form_values['settings_max_width_value_' . $row_key]);
             $max_width_rows[$row_key]['unit'] = trim($this->form_values['settings_max_width_unit_' . $row_key]);
-            $max_width[$row_key] = '.pr-' . str_replace('_', '-', $row_key) . '__rw { max-width: ' .  $max_width_rows[$row_key]['value'] .  $max_width_rows[$row_key]['unit'] . '; }';
+            $max_width[$row_key] = '.pr-' . str_replace('_', '-', $row_key) . '__rw { max-width: ' . $max_width_rows[$row_key]['value'] . $max_width_rows[$row_key]['unit'] . '; }';
           }
         }
       }
@@ -176,7 +185,7 @@ class LayoutSubmit {
       if (substr($values_key, 0, 18) === 'delete_suggestion_') {
         if ($values_value === 1) {
           $delete_suggestion_keys[] = mb_substr($values_key, 18);
-		  /*$delete_suggestion_keys[] = Unicode::substr($values_key, 18);*/
+          /*$delete_suggestion_keys[] = Unicode::substr($values_key, 18);*/
         }
       }
     }
@@ -194,7 +203,7 @@ class LayoutSubmit {
         $file_name = $this->theme_name . '.layout.' . str_replace('_', '-', $suggestion) . '.css';
         $filepath = "$generated_files_path/$file_name";
         /*file_unmanaged_save_data($file_content, $filepath, FILE_EXISTS_REPLACE);*/
-		\Drupal::service('file_system')->saveData($file_content, $filepath, FileSystemInterface::EXISTS_REPLACE);
+        \Drupal::service('file_system')->saveData($file_content, $filepath, FileSystemInterface::EXISTS_REPLACE);
         if (file_exists($filepath)) {
           $saved_css[] = $file_name;
         }
@@ -225,7 +234,7 @@ class LayoutSubmit {
         if (isset($region_values['label'])) {
           $regions[$region_key] = $region_values['label'];
         }
-        // BC
+        // BC.
         else {
           $regions[$region_key] = $region_values;
         }
@@ -251,25 +260,25 @@ class LayoutSubmit {
 
     // Todo - move to method?
     // Create a backup.
-//    if ($this->form_values['settings_enable_backups'] == 1) {
-//
-//      $fileOperations = new FileOperations();
-//      $directoryOperations = new DirectoryOperations();
-//
-//      $backup_path = $directoryOperations->directoryPrepare($backup_file_path = [$path, 'backup', 'info']);
-//
-//      // Add a date time string to make unique and for easy identification,
-//      // save as .txt to avoid conflicts.
-//      $backup_file =  $info_file . '.'. date(DATE_ISO8601) . '.txt';
-//
-//      $file_paths = [
-//       'copy_source' => $file_path,
-//       'copy_dest' => $backup_path . '/' . $info_file,
-//       'rename_oldname' => $backup_path . '/' . $info_file,
-//       'rename_newname' => $backup_path . '/' . $backup_file,
-//      ];
-//      $fileOperations->fileCopyRename($file_paths);
-//    }
+    //    if ($this->form_values['settings_enable_backups'] == 1) {
+    //
+    //      $fileOperations = new FileOperations();
+    //      $directoryOperations = new DirectoryOperations();
+    //
+    //      $backup_path = $directoryOperations->directoryPrepare($backup_file_path = [$path, 'backup', 'info']);
+    //
+    //      // Add a date time string to make unique and for easy identification,
+    //      // save as .txt to avoid conflicts.
+    //      $backup_file =  $info_file . '.'. date(DATE_ISO8601) . '.txt';
+    //
+    //      $file_paths = [
+    //       'copy_source' => $file_path,
+    //       'copy_dest' => $backup_path . '/' . $info_file,
+    //       'rename_oldname' => $backup_path . '/' . $info_file,
+    //       'rename_newname' => $backup_path . '/' . $backup_file,
+    //      ];
+    //      $fileOperations->fileCopyRename($file_paths);
+    //    }
 
     // Parse, format and save info with new regions.
     $parser = new Parser();
@@ -281,7 +290,7 @@ class LayoutSubmit {
       $theme_info_data['regions'] = $regions;
       $rebuilt_info = $buildInfo->fileBuildInfoYml($theme_info_data);
       /*file_unmanaged_save_data($rebuilt_info, $file_path, FILE_EXISTS_REPLACE);*/
-	  \Drupal::service('file_system')->saveData($rebuilt_info, $file_path, FileSystemInterface::EXISTS_REPLACE);
+      \Drupal::service('file_system')->saveData($rebuilt_info, $file_path, FileSystemInterface::EXISTS_REPLACE);
     }
   }
 
@@ -309,7 +318,7 @@ class LayoutSubmit {
       if (substr($values_key, 0, 18) === 'delete_suggestion_') {
         if ($values_value === 1) {
           /*$delete_suggestion_keys[] = Unicode::substr($values_key, 18);*/
-		  $delete_suggestion_keys[] = mb_substr($values_key, 18);
+          $delete_suggestion_keys[] = mb_substr($values_key, 18);
         }
       }
     }
@@ -364,11 +373,11 @@ class LayoutSubmit {
       // Attach the layout library.
       $generated_files_path = $this->form_values['settings_generated_files_path'];
       $layout_file = $this->theme_name . '.layout.' . str_replace('_', '-', $suggestion_key) . '.css';
-      if (file_exists($generated_files_path .'/'. $layout_file)) {
-        $library = $this->theme_name .'/'. $this->theme_name . '.layout.' . $suggestion_key;
+      if (file_exists($generated_files_path . '/' . $layout_file)) {
+        $library = $this->theme_name . '/' . $this->theme_name . '.layout.' . $suggestion_key;
       }
       else {
-        $library = $this->theme_name .'/'. $this->theme_name . '.layout.page';
+        $library = $this->theme_name . '/' . $this->theme_name . '.layout.page';
       }
       $attach_layout = "{{ attach_library('$library') }}";
 
@@ -407,15 +416,15 @@ class LayoutSubmit {
       if ($this->form_values['settings_enable_backups'] == 1) {
         $backup_path = $directoryOperations->directoryPrepare($backup_file_path = [$path, 'backup', 'templates']);
 
-        //Add a date time string to make unique and for easy identification,
+        // Add a date time string to make unique and for easy identification,
         // save as .txt to avoid conflicts.
-        $backup_file =  $template_file . '.' . date(DATE_ISO8601) . '.txt';
+        $backup_file = $template_file . '.' . date(DATE_ISO8601) . '.txt';
 
         $file_paths = [
-         'copy_source' => $template_path,
-         'copy_dest' => $backup_path . '/' . $template_file,
-         'rename_oldname' => $backup_path . '/' . $template_file,
-         'rename_newname' => $backup_path . '/' . $backup_file,
+          'copy_source' => $template_path,
+          'copy_dest' => $backup_path . '/' . $template_file,
+          'rename_oldname' => $backup_path . '/' . $template_file,
+          'rename_newname' => $backup_path . '/' . $backup_file,
         ];
 
         $fileOperations->fileCopyRename($file_paths);
@@ -423,12 +432,12 @@ class LayoutSubmit {
     }
 
     foreach ($templates as $suggestion => $template_values) {
-       if (!file_exists($templates[$suggestion]['template_path'])) {
-         $new_template = $templates[$suggestion]['template_name'];
-         $new_template_message = t('It looks like you generated a new template: <b>@new_template</b>. Save the layout settings again so they will take effect.', ['@new_template' => $new_template]);
-       }
+      if (!file_exists($templates[$suggestion]['template_path'])) {
+        $new_template = $templates[$suggestion]['template_name'];
+        $new_template_message = t('It looks like you generated a new template: <b>@new_template</b>. Save the layout settings again so they will take effect.', ['@new_template' => $new_template]);
+      }
       /*file_unmanaged_save_data($templates[$suggestion]['markup'], $templates[$suggestion]['template_path'], FILE_EXISTS_REPLACE);*/
-	  \Drupal::service('file_system')->saveData($templates[$suggestion]['markup'], $templates[$suggestion]['template_path'], FileSystemInterface::EXISTS_REPLACE);
+      \Drupal::service('file_system')->saveData($templates[$suggestion]['markup'], $templates[$suggestion]['template_path'], FileSystemInterface::EXISTS_REPLACE);
       if (file_exists($templates[$suggestion]['template_path'])) {
         $saved_templates[] = $templates[$suggestion]['template_name'];
       }
@@ -449,4 +458,5 @@ class LayoutSubmit {
       \Drupal::messenger()->addMessage($new_template_message, 'status');
     }
   }
+
 }

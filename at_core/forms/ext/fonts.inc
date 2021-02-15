@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Preset lists of font options.
  */
 
@@ -24,7 +25,6 @@ function websafe_fonts() {
 }
 
 /**
-
  * Font Elements Config Array.
  *
  * The fonts array is used by the fonts sub-system to generate forms,
@@ -162,7 +162,9 @@ function font_elements() {
 
 /**
  * Reusable style options for titles.
+ *
  * @param $style
+ *
  * @return array
  */
 function title_style_options($style) {
@@ -177,7 +179,8 @@ function title_style_options($style) {
         'small-caps' => t('Small caps'),
         'inherit'    => t('Inherit'),
       ];
-    break;
+      break;
+
     case ('weight'):
       $options = [
         '400' => t('Normal'),
@@ -185,14 +188,15 @@ function title_style_options($style) {
         '600' => t('Semi-bold'),
         '300' => t('Light'),
       ];
-    break;
+      break;
+
     case ('alignment'):
       $options = [
         'left'   => t('Left'),
         'right'  => t('Right'),
         'center' => t('Centered'),
       ];
-    break;
+      break;
   }
 
   return $options;

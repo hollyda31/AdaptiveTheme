@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 use Drupal\Core\Asset\CssOptimizer;
 use Drupal\Component\Utility\Bytes;
 use Drupal\Component\Utility\Environment;
@@ -86,8 +90,8 @@ function at_color_scheme_form_submit($form, FormStateInterface $form_state) {
   $paths['target'] = $paths['color'] . '/' . $id;
   foreach ($paths as $path) {
     /*file_prepare_directory($path, FILE_CREATE_DIRECTORY);*/
-	//\Drupal::service('file_system')->prepareDirectory($path, FILE_CREATE_DIRECTORY);
-	\Drupal::service('file_system')->prepareDirectory($path, FileSystemInterface::CREATE_DIRECTORY);
+    // \Drupal::service('file_system')->prepareDirectory($path, FILE_CREATE_DIRECTORY);
+    \Drupal::service('file_system')->prepareDirectory($path, FileSystemInterface::CREATE_DIRECTORY);
   }
   $paths['target'] = $paths['target'] . '/';
   $paths['id'] = $id;
@@ -105,7 +109,7 @@ function at_color_scheme_form_submit($form, FormStateInterface $form_state) {
     $base = \Drupal::service('file_system')->basename($file);
     $source = $paths['source'] . $file;
     /*$filepath = file_unmanaged_copy($source, $paths['target'] . $base);*/
-	$filepath = \Drupal::service('file_system')->copy($source, $paths['target'] . $base);
+    $filepath = \Drupal::service('file_system')->copy($source, $paths['target'] . $base);
     $paths['map'][$file] = $base;
     $paths['files'][] = $filepath;
   }
@@ -138,7 +142,7 @@ function at_color_scheme_form_submit($form, FormStateInterface $form_state) {
       // processCss is a protected method so we can' call it here, instead I've
       // nicked some bits out of it to remove comments/sourceMapURL etc.
       // Strip all comment including source maps which cause 404 errors.
-      $comment     = '/\*[^*]*\*+(?:[^/*][^*]*\*+)*/';
+      $comment = '/\*[^*]*\*+(?:[^/*][^*]*\*+)*/';
       // Regexp to match double quoted strings.
       $double_quot = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"';
       // Regexp to match single quoted strings.
@@ -175,7 +179,6 @@ function at_color_scheme_form_submit($form, FormStateInterface $form_state) {
   \Drupal::messenger()->addMessage(t('Color scheme <i>@scheme</i> saved.', ['@scheme' => $scheme_name]), 'status');
 }
 
-
 /**
  * Logs a notice of the custom color settings.
  *
@@ -198,7 +201,7 @@ function at_core_log_color_scheme($form, FormStateInterface $form_state) {
   $indent     = str_pad(' ', 6);
   $lines      = explode("\n", var_export($palette, TRUE));
 
-  $message  = "    'PaletteName' => array(\n";
+  $message = "    'PaletteName' => array(\n";
   $message .= $indent . "'title' => t('PaletteName'),\n";
   $message .= $indent . "'colors' => array(\n";
   $last_line = $indent . array_pop($lines) . ',';
@@ -209,10 +212,11 @@ function at_core_log_color_scheme($form, FormStateInterface $form_state) {
     if (strpos($line, ' => ') !== FALSE) {
       $parts = explode(' => ', $line);
       $message .= $indent . $parts[0] . str_pad(' ', (52 - strlen($line))) . '=> ' . $parts[1];
-    } else {
-      $message .=  "$indent  $line";
     }
-    $message .=  "\n";
+    else {
+      $message .= "$indent  $line";
+    }
+    $message .= "\n";
   }
 
   foreach ($lines as $line) {
@@ -226,7 +230,7 @@ function at_core_log_color_scheme($form, FormStateInterface $form_state) {
 
   $message .= "$last_line\n";
   $message .= "    ),\n";
-  $message = '<pre>' . $message . "\n\n" .  $message_scss . '</pre>';
+  $message = '<pre>' . $message . "\n\n" . $message_scss . '</pre>';
 
   \Drupal::logger($theme)->notice($message);
 

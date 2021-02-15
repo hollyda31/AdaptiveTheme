@@ -4,6 +4,9 @@ namespace Drupal\at_core\Layout;
 
 use Drupal\layout_plugin\Layout as LayoutPlugin;
 
+/**
+ *
+ */
 class LayoutDiscoveryPlugin {
 
   /**
@@ -66,7 +69,6 @@ class LayoutDiscoveryPlugin {
     return $theme_hooks;
   }
 
-
   /**
    * @return array
    */
@@ -127,4 +129,5 @@ class LayoutDiscoveryPlugin {
 
     return $library_names;
   }
+
 }

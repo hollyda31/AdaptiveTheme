@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Output formatted CSS for fonts.
  */
 
@@ -24,11 +25,14 @@ function at_convert_image_alignment_settings($values) {
   return $settings;
 }
 
+/**
+ *
+ */
 function at_core_submit_images($values, $generated_files_path) {
   $converted_values = at_convert_image_alignment_settings($values['table_image_align']);
 
   // Get stuff.
-  $ext_get = New ExtGet;
+  $ext_get = new ExtGet();
   $entity_types = $ext_get->getEntityTypes();
   $view_modes = $ext_get->getViewModes();
 
@@ -106,9 +110,9 @@ function at_core_submit_images($values, $generated_files_path) {
 
               // Build CSS output.
               if (isset($alignment) && !empty($alignment)) {
-                $css[$entity_type_key.$entity_type_id.$breakpoint_ia_key.$display_mode_id]['css'] =
+                $css[$entity_type_key . $entity_type_id . $breakpoint_ia_key . $display_mode_id]['css'] =
                   '@media ' . $breakpoint_ia_mediaquery . ' {' .
-                  "\n" . '  .' . $entity_type_class . '--type-' . $entity_type_id . '.' .  $entity_type_class . '--view-mode-' . $display_mode_selector_part . ' .field-type-image__figure { ' .
+                  "\n" . '  .' . $entity_type_class . '--type-' . $entity_type_id . '.' . $entity_type_class . '--view-mode-' . $display_mode_selector_part . ' .field-type-image__figure { ' .
                   "\n" . '  ' . $alignment_property . ': ' . $alignment . ';' .
                   "\n" . '  margin: ' . implode(' ', $set_margins) . ';' .
                   "\n" . ' }' .
@@ -129,7 +133,7 @@ function at_core_submit_images($values, $generated_files_path) {
     $file_name = 'image-styles.css';
     $filepath = $generated_files_path . '/' . $file_name;
     /*file_unmanaged_save_data($output, $filepath, FILE_EXISTS_REPLACE);*/
-	\Drupal::service('file_system')->saveData($output, $filepath, FileSystemInterface::EXISTS_REPLACE);
+    \Drupal::service('file_system')->saveData($output, $filepath, FileSystemInterface::EXISTS_REPLACE);
   }
 
   // Return the converted values for config.

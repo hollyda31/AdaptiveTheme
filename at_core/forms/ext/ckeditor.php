@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * CKEditor skin settings.
  */
 

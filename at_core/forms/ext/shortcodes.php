@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Generate form elements for the Shortcodes settings.
  */
 
@@ -31,7 +32,7 @@ $form['shortcodes'] = [
   '#description' => t('<h3>Shortcode CSS Classes</h3><p>Shortcodes are CSS classes that can add style, layout or behavior (such as an animation effect) to various page elements like blocks or regions.</p><p>To use enter comma separated lists of CSS class names in the available fields. You may need to <a href="/admin/config/development/performance" target="_blank"><b>clear the cache</b></a> after adding or removing classes</span>.</p>'),
 ];
 
-// Page
+// Page.
 $form['shortcodes']['page_classes'] = [
   '#type' => 'details',
   '#title' => t('Body, Page'),
@@ -44,7 +45,7 @@ foreach ($page_elements as $page_elements_key => $page_elements_value) {
   ];
 }
 
-// Rows
+// Rows.
 $form['shortcodes']['row_classes'] = [
   '#type' => 'details',
   '#title' => t('Page Rows'),
@@ -54,13 +55,13 @@ foreach ($layout_config['rows'] as $row_data_key => $row_data_value) {
     '#type' => 'details',
     '#title' => t($row_data_key),
   ];
-  // Wrappers
+  // Wrappers.
   $form['shortcodes']['row_classes'][$row_data_key]['settings_page_classes_row_wrapper_' . $row_data_key] = [
     '#type' => 'textfield',
     '#title' => t($row_data_key . ' wrapper'),
     '#default_value' => Html::escape(theme_get_setting('settings.page_classes_row_wrapper_' . $row_data_key, $theme)),
   ];
-  // Containers
+  // Containers.
   $form['shortcodes']['row_classes'][$row_data_key]['settings_page_classes_row_container_' . $row_data_key] = [
     '#type' => 'textfield',
     '#title' => t($row_data_key . ' container'),
@@ -82,7 +83,7 @@ foreach ($theme_regions as $region_key => $region_value) {
   ];
 }
 
-// Blocks
+// Blocks.
 if ($block_module === TRUE) {
   if (isset($theme_blocks) && !empty($theme_blocks)) {
     $form['shortcodes']['block_classes'] = [
@@ -112,7 +113,7 @@ if ($block_module === TRUE) {
   }
 }
 
-// Node types
+// Node types.
 if ($node_module === TRUE) {
   $form['shortcodes']['nodetype_classes'] = [
     '#type' => 'details',
@@ -132,7 +133,7 @@ if ($node_module === TRUE) {
   }
 }
 
-// Comment types
+// Comment types.
 if ($comment_module === TRUE) {
   $form['shortcodes']['commenttype_classes'] = [
     '#type'  => 'details',
@@ -184,11 +185,11 @@ if (!empty($shortcodes)) {
       '#type' => 'details',
       '#group' => 'available_classes',
       '#title' => t($class_values['name']),
-      '#markup' => t('<h3>' . $class_values['name'] . '</h3><p>'. $class_type_description .'</p><p><b>Use for:</b> <i>' . $class_elements . '</i></p>' ),
+      '#markup' => t('<h3>' . $class_values['name'] . '</h3><p>' . $class_type_description . '</p><p><b>Use for:</b> <i>' . $class_elements . '</i></p>'),
     ];
 
     // Use this setting to conditionally load only the CSS we need for this theme.
-    $form['shortcodes']['classes'][$class_type]['settings_shortcodes_'. $class_type . '_enable'] = [
+    $form['shortcodes']['classes'][$class_type]['settings_shortcodes_' . $class_type . '_enable'] = [
       '#type' => 'checkbox',
       '#title' => t('Use ' . $class_values['name'] . ' classes'),
       '#default_value' => theme_get_setting('settings.shortcodes_' . $class_type . '_enable'),
@@ -203,13 +204,13 @@ if (!empty($shortcodes)) {
     ];
 
     foreach ($class_values['classes'] as $class_key => $class_data) {
-      $class_name =  Xss::filterAdmin($class_data['class']);
-      $class_description = isset($class_data['description']) ? t($class_data['description']): '';
+      $class_name = Xss::filterAdmin($class_data['class']);
+      $class_description = isset($class_data['description']) ? t($class_data['description']) : '';
 
       // This is a test, very rough and should be generalized to allow any shortcode to supply an image.
       if (isset($class_data['image']) && $class_type == 'patterns') {
         $class_image = $subtheme_path . '/' . $class_data['image'];
-        $class_output[$class_type][] = '<dt>' . $class_name . '</dt><dd>' . $class_description . '<div class="pattern-image-clip"><img class="pattern-image" src="/' . $class_image .  '" alt="Background image for the ' . $class_name .  ' pattern." /></div></dd>';
+        $class_output[$class_type][] = '<dt>' . $class_name . '</dt><dd>' . $class_description . '<div class="pattern-image-clip"><img class="pattern-image" src="/' . $class_image . '" alt="Background image for the ' . $class_name . ' pattern." /></div></dd>';
       }
       else {
         $class_output[$class_type][] = '<dt>' . $class_name . '</dt><dd>' . $class_description . '</dd>';

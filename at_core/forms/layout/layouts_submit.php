@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Submit layouts.
  */
 
@@ -10,6 +11,7 @@ use Drupal\at_core\Layout\LayoutSubmit;
 
 /**
  * Form submit handler for the Layout settings.
+ *
  * @param $form
  * @param $form_state
  */
@@ -47,7 +49,7 @@ function at_core_submit_layouts(&$form, &$form_state) {
       $values["settings_suggestion_page__$clean_suggestion"] = $clean_suggestion;
     }
 
-    // Delete suggestion files
+    // Delete suggestion files.
     $templates_directory = drupal_get_path('theme', $theme) . '/templates/generated';
     $css_directory = $values['settings_generated_files_path'];
     foreach ($values as $values_key => $values_value) {

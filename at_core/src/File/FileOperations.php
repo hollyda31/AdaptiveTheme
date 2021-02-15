@@ -5,6 +5,9 @@ namespace Drupal\at_core\File;
 use Drupal\Component\Serialization\Yaml;
 use Drupal\Core\File\FileSystemInterface;
 
+/**
+ *
+ */
 class FileOperations {
 
   /**
@@ -47,12 +50,12 @@ class FileOperations {
    *    - copy_source => "path to the source file"
    *    - copy_dest => "the destination path"
    *    - rename_oldname => "the old file name"
-   *    - rename_newname => "the new file name"
+   *    - rename_newname => "the new file name".
    */
   public function fileCopyRename($file_paths) {
     if (file_exists($file_paths['copy_source'])) {
       /*file_unmanaged_copy($file_paths['copy_source'], $file_paths['copy_dest'], FILE_EXISTS_RENAME);*/
-	  \Drupal::service('file_system')->copy($file_paths['copy_source'], $file_paths['copy_dest'], FileSystemInterface::EXISTS_RENAME);
+      \Drupal::service('file_system')->copy($file_paths['copy_source'], $file_paths['copy_dest'], FileSystemInterface::EXISTS_RENAME);
     }
   }
 
@@ -67,7 +70,7 @@ class FileOperations {
   public function fileReplace($data, $file_path) {
     if (file_exists($file_path)) {
       /*file_unmanaged_save_data($data, $file_path, FILE_EXISTS_REPLACE);*/
-	  \Drupal::service('file_system')->saveData($data, $file_path, FileSystemInterface::EXISTS_REPLACE);
+      \Drupal::service('file_system')->saveData($data, $file_path, FileSystemInterface::EXISTS_REPLACE);
     }
   }
 
@@ -76,6 +79,7 @@ class FileOperations {
    *
    * @param array $data
    *   The associative array data to build the .info.yml file.
+   *
    * @return string
    *   A string corresponding to $data encoded in the .yml format.
    *

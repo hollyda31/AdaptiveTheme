@@ -5,18 +5,22 @@ namespace Drupal\at_core\Theme;
 use Drupal\Core\Config\Config;
 use Drupal\Component\Utility\Unicode;
 
+/**
+ *
+ */
 class ThemeSettingsConfig {
 
   /**
- * Set config for theme Extension settings.
- * @param array $values
- * @param \Drupal\Core\Config\Config $config
- */
+   * Set config for theme Extension settings.
+   *
+   * @param array $values
+   * @param \Drupal\Core\Config\Config $config
+   */
   public function settingsExtensionsConvertToConfig(array $values, Config $config) {
     foreach ($values as $key => $value) {
       if (substr($key, 0, 9) == 'settings_') {
         $config_key = mb_substr($key, 9);
-		/*$config_key = Unicode::substr($key, 9);*/
+        /*$config_key = Unicode::substr($key, 9);*/
         $config->set('settings.' . $config_key, $value);
       }
     }
@@ -25,6 +29,7 @@ class ThemeSettingsConfig {
 
   /**
    * Set config for theme Layout settings.
+   *
    * @param array $values
    * @param \Drupal\Core\Config\Config $config
    */
@@ -32,7 +37,7 @@ class ThemeSettingsConfig {
     foreach ($values as $key => $value) {
       if (substr($key, 0, 9) == 'settings_') {
         $config_key = mb_substr($key, 9);
-		/*$config_key = Unicode::substr($key, 9);*/
+        /*$config_key = Unicode::substr($key, 9);*/
         $config->set('settings.' . $config_key, $value);
       }
       // Delete suggestions config settings. Do not remove all the suggestions
@@ -41,7 +46,7 @@ class ThemeSettingsConfig {
       // accidentally delete a suggestion.
       if (substr($key, 0, 18) == 'delete_suggestion_') {
         /*$delete_suggestion_key = 'settings.suggestion_' . Unicode::substr($key, 18);*/
-		$delete_suggestion_key = 'settings.suggestion_' . mb_substr($key, 18);
+        $delete_suggestion_key = 'settings.suggestion_' . mb_substr($key, 18);
         if ($value == 1) {
           $config->clear($delete_suggestion_key, $value);
         }

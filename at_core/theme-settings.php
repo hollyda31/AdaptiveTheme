@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Custom theme settings.
  */
 
@@ -37,11 +38,11 @@ function at_core_form_system_theme_settings_alter(&$form, FormStateInterface $fo
   $themeInfo = new ThemeInfo($theme);
   $getThemeInfo = $themeInfo->getThemeInfo('info');
 
-  // Get this themes config settings
+  // Get this themes config settings.
   $config = \Drupal::config($theme . '.settings')->get('settings');
 
   // Common paths.
-  $at_core_path  = drupal_get_path('theme', 'at_core');
+  $at_core_path = drupal_get_path('theme', 'at_core');
   $subtheme_path = drupal_get_path('theme', $theme);
   $generated_files_path = NULL;
 
@@ -53,9 +54,8 @@ function at_core_form_system_theme_settings_alter(&$form, FormStateInterface $fo
 
   // Get the active themes regions so we can use this in
   // various other places.
-  //$theme_regions = system_region_list($theme, $show = REGIONS_VISIBLE);
+  // $theme_regions = system_region_list($theme, $show = REGIONS_VISIBLE);.
   $theme_regions = system_region_list($theme, $show = BlockRepositoryInterface::REGIONS_VISIBLE);
-  
 
   // Set variables if modules exist.
   $modules = ['node', 'comment', 'block', 'block_content', 'paragraphs', 'breakpoint', 'at_tool'];
@@ -77,11 +77,11 @@ function at_core_form_system_theme_settings_alter(&$form, FormStateInterface $fo
   $at_tools_module = $module_exists['at_tool'];
 
   // Get stuff.
-  $ext_get = New ExtGet;
+  $ext_get = new ExtGet();
 
   // Active theme blocks.
   $theme_blocks = $ext_get->getActiveThemeBlocks($theme);
-  //kint($theme_blocks);
+  // kint($theme_blocks);
 
   // Breakpoints.
   $break_points = $ext_get->getBreakPoints();
@@ -131,7 +131,7 @@ function at_core_form_system_theme_settings_alter(&$form, FormStateInterface $fo
     \Drupal::messenger()->addMessage(t('Please install the <a href="@at_tools_href" target="_blank">AT Tool</a> module for Drupal 8/9. Your theme may not operate correctly without this module installed.', ['@at_tools_href' => 'https://www.drupal.org/project/at_tool']), 'warning');
   }
 
-  // AT Core
+  // AT Core.
   if ($theme === 'at_core') {
     $form['at_core']['message'] = [
       '#type' => 'container',
@@ -145,7 +145,7 @@ function at_core_form_system_theme_settings_alter(&$form, FormStateInterface $fo
     $form['actions']['#attributes']['class'] = ['visually-hidden'];
   }
 
-  // AT Subtheme
+  // AT Subtheme.
   if (isset($getThemeInfo['subtheme type'])) {
 
     // BC layer for older themes.
@@ -157,17 +157,17 @@ function at_core_form_system_theme_settings_alter(&$form, FormStateInterface $fo
         '#value' => $generated_files_path,
       ];
 
-      // theme info block
-      require_once($at_core_path . '/forms/theme_info.php');
+      // Theme info block.
+      require_once $at_core_path . '/forms/theme_info.php';
 
       // Check for breakpoint module, a lot of errors without it, this is brutal.
       if ($breakpoint_module === TRUE) {
         if ($getThemeInfo['subtheme type'] === 'adaptive_subtheme') {
-          require_once($at_core_path . '/forms/ext/extension_settings.php');
-          require_once($at_core_path . '/forms/layout/layouts.php');
+          require_once $at_core_path . '/forms/ext/extension_settings.php';
+          require_once $at_core_path . '/forms/layout/layouts.php';
         }
         elseif ($getThemeInfo['subtheme type'] === 'adaptive_skin') {
-          require_once($at_core_path . '/forms/ext/extension_settings_skin.php');
+          require_once $at_core_path . '/forms/ext/extension_settings_skin.php';
         }
       }
 
@@ -200,7 +200,7 @@ function at_core_form_system_theme_settings_alter(&$form, FormStateInterface $fo
 
   // Modify the color scheme form.
   if (\Drupal::moduleHandler()->moduleExists('color')) {
-    include_once($at_core_path . '/forms/color/color_submit.php');
+    include_once $at_core_path . '/forms/color/color_submit.php';
     if (isset($build_info['args'][0]) && ($theme = $build_info['args'][0]) && color_get_info($theme) && function_exists('gd_info')) {
       $form['#process'][] = 'at_core_color_form';
     }
@@ -221,6 +221,7 @@ function at_core_form_system_theme_settings_alter(&$form, FormStateInterface $fo
  * Helper function to modify the color scheme form.
  *
  * @param $form
+ *
  * @return array $form
  */
 function at_core_color_form($form) {
@@ -233,13 +234,13 @@ function at_core_color_form($form) {
     '#type' => 'submit',
     '#value' => t('Save color scheme'),
     '#button_type' => 'primary',
-    '#submit'=> ['at_color_scheme_form_submit'],
+    '#submit' => ['at_color_scheme_form_submit'],
     '#weight' => 100,
   ];
   $form['color']['actions']['log'] = [
     '#type' => 'submit',
     '#value' => t('Log color scheme'),
-    '#submit'=> ['at_core_log_color_scheme'],
+    '#submit' => ['at_core_log_color_scheme'],
     '#weight' => 101,
     '#access' => FALSE,
   ];

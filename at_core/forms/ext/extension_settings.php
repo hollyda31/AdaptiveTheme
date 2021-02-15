@@ -1,12 +1,13 @@
 <?php
 
 /**
+ * @file
  * Generate form elements for the Extension settings.
  */
 
 // Submit handlers for the advanced settings.
-include_once(drupal_get_path('theme', 'at_core') . '/forms/ext/extension_settings_validate.php');
-include_once(drupal_get_path('theme', 'at_core') . '/forms/ext/extension_settings_submit.php');
+include_once drupal_get_path('theme', 'at_core') . '/forms/ext/extension_settings_validate.php';
+include_once drupal_get_path('theme', 'at_core') . '/forms/ext/extension_settings_submit.php';
 
 $settings_extensions_form_open = theme_get_setting('settings.extensions_form_open', $theme);
 
@@ -55,7 +56,7 @@ $form['extensions']['extension_settings'] = [
   ],
 ];
 
-// Extensions
+// Extensions.
 $form['enable_extensions'] = [
   '#type' => 'details',
   '#title' => t('Enable extensions'),
@@ -66,7 +67,7 @@ $form['enable_extensions']['description'] = [
   '#markup' => t('<p>Extensions are settings for configuring and styling your site. Enabled extensions appear in new vertical tabs.</p>'),
 ];
 
-// Responsive Menus
+// Responsive Menus.
 $form['enable_extensions']['settings_enable_responsive_menus'] = [
   '#type' => 'checkbox',
   '#title' => t('Responsive menus'),
@@ -74,7 +75,7 @@ $form['enable_extensions']['settings_enable_responsive_menus'] = [
   '#default_value' => theme_get_setting('settings.enable_responsive_menus', $theme),
 ];
 
-// Image alignment and captions
+// Image alignment and captions.
 $form['enable_extensions']['settings_enable_images'] = [
   '#type' => 'checkbox',
   '#title' => t('Image alignment and captions'),
@@ -82,7 +83,7 @@ $form['enable_extensions']['settings_enable_images'] = [
   '#description' => t('Set image alignment, captions and teaser view per content type.'),
 ];
 
-// Touch icons
+// Touch icons.
 $form['enable_extensions']['settings_enable_touch_icons'] = [
   '#type' => 'checkbox',
   '#title' => t('Touch icons'),
@@ -90,7 +91,7 @@ $form['enable_extensions']['settings_enable_touch_icons'] = [
   '#default_value' => theme_get_setting('settings.enable_touch_icons', $theme),
 ];
 
-// Fonts
+// Fonts.
 $form['enable_extensions']['settings_enable_fonts'] = [
   '#type' => 'checkbox',
   '#title' => t('Fonts'),
@@ -98,7 +99,7 @@ $form['enable_extensions']['settings_enable_fonts'] = [
   '#description' => t('Apply fonts to site elements. Supports <a href=":gflink" target="_blank">Google</a> and <a href=":tklink" target="_blank">Typekit</a> fonts, as well as standard websafe fonts.', [':tklink' => 'https://typekit.com/', ':gflink' => 'https://fonts.google.com/']),
 ];
 
-// Title styles
+// Title styles.
 $form['enable_extensions']['settings_enable_titles'] = [
   '#type' => 'checkbox',
   '#title' => t('Titles'),
@@ -106,7 +107,7 @@ $form['enable_extensions']['settings_enable_titles'] = [
   '#description' => t('Set case, weight, alignment and letter-spacing for titles (headings).'),
 ];
 
-// Shortcodes
+// Shortcodes.
 $form['enable_extensions']['settings_enable_shortcodes'] = [
   '#type' => 'checkbox',
   '#title' => t('Shortcode CSS Classes'),
@@ -114,7 +115,7 @@ $form['enable_extensions']['settings_enable_shortcodes'] = [
   '#default_value' => theme_get_setting('settings.enable_shortcodes', $theme),
 ];
 
-// Slideshows
+// Slideshows.
 $form['enable_extensions']['settings_enable_slideshows'] = [
   '#type' => 'checkbox',
   '#title' => t('Slideshows'),
@@ -122,7 +123,7 @@ $form['enable_extensions']['settings_enable_slideshows'] = [
   '#default_value' => theme_get_setting('settings.enable_slideshows', $theme),
 ];
 
-// Mobile blocks
+// Mobile blocks.
 $form['enable_extensions']['settings_enable_mobile_blocks'] = [
   '#type' => 'checkbox',
   '#title' => t('Mobile Blocks'),
@@ -130,7 +131,7 @@ $form['enable_extensions']['settings_enable_mobile_blocks'] = [
   '#default_value' => theme_get_setting('settings.enable_mobile_blocks', $theme),
 ];
 
-// Custom CSS
+// Custom CSS.
 $form['enable_extensions']['settings_enable_custom_css'] = [
   '#type' => 'checkbox',
   '#title' => t('Custom CSS'),
@@ -149,7 +150,7 @@ if (theme_get_setting('settings.mimic_compatible', $theme) === 1) {
   ];
 }
 
-// Devel
+// Devel.
 $form['enable_extensions']['settings_enable_devel'] = [
   '#type' => 'checkbox',
   '#title' => t('Developer tools'),
@@ -157,7 +158,7 @@ $form['enable_extensions']['settings_enable_devel'] = [
   '#default_value' => theme_get_setting('settings.enable_devel', $theme),
 ];
 
-// Legacy browsers
+// Legacy browsers.
 $form['enable_extensions']['settings_enable_legacy_browsers'] = [
   '#type' => 'checkbox',
   '#title' => t('Legacy browsers'),
@@ -165,7 +166,7 @@ $form['enable_extensions']['settings_enable_legacy_browsers'] = [
   '#default_value' => theme_get_setting('settings.enable_legacy_browsers', $theme),
 ];
 
-// Markup overrides
+// Markup overrides.
 $form['enable_extensions']['settings_enable_markup_overrides'] = [
   '#type' => 'checkbox',
   '#title' => t('Markup overrides'),
@@ -191,7 +192,7 @@ $form['enable_extensions']['settings_enable_markup_overrides'] = [
 if (theme_get_setting('settings.enable_extensions', $theme) == 1) {
 
   // Include fonts.inc by default.
-  include_once($at_core_path . '/forms/ext/fonts.inc');
+  include_once $at_core_path . '/forms/ext/fonts.inc';
 
   $extensions_array = [
     'responsive_menus',
@@ -216,7 +217,7 @@ if (theme_get_setting('settings.enable_extensions', $theme) == 1) {
     $form_state_value = isset($values["settings_enable_$extension"]) ? $values["settings_enable_$extension"] : 0;
     $form_value = isset($form['enable_extensions']["settings_enable_$extension"]['#default_value']) ? $form['enable_extensions']["settings_enable_$extension"]['#default_value'] : 0;
     if (($form_state_value && $form_state_value === 1) || (!$form_state_value && $form_value === 1)) {
-      include_once($at_core_path . '/forms/ext/' . $extension . '.php');
+      include_once $at_core_path . '/forms/ext/' . $extension . '.php';
     }
   }
 }
@@ -229,7 +230,7 @@ $form['extensions']['actions'] = [
 $form['extensions']['actions']['submit'] = [
   '#type' => 'submit',
   '#value' => t('Save extension settings'),
-  '#validate'=> ['at_core_validate_extension_settings'],
-  '#submit'=> ['at_core_submit_extension_settings'],
+  '#validate' => ['at_core_validate_extension_settings'],
+  '#submit' => ['at_core_submit_extension_settings'],
   '#attributes' => ['class' => ['button--primary']],
 ];

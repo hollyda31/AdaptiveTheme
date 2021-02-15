@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ */
+
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\Core\Template\Attribute;
 use Drupal\Component\Utility\Html;
@@ -11,6 +16,7 @@ use Drupal\block\BlockRepositoryInterface;
 
 /**
  * Preprocess variables for all templates.
+ *
  * @param $variables
  */
 function at_core_preprocess(&$variables) {
@@ -36,11 +42,12 @@ function at_core_preprocess(&$variables) {
 
 /**
  * Preprocess variables for html templates.
+ *
  * @param $variables
  */
 function at_core_preprocess_html(&$variables) {
   // Get the right config for this theme type.
-  //$themeConfig = new ThemeConfig($active_theme_name);
+  // $themeConfig = new ThemeConfig($active_theme_name);
   $config = $variables['theme']['config'];
 
   // Set active theme name.
@@ -51,7 +58,7 @@ function at_core_preprocess_html(&$variables) {
     $variables['directory'] = $variables['theme']['path'];
   }
 
-  // Set the skip navigation target ID
+  // Set the skip navigation target ID.
   $variables['skip_link_target'] = '#block-' . Html::cleanCssIdentifier($active_theme_name) . '-content';
 
   // Defaults for Appearance setting variables.
@@ -60,7 +67,7 @@ function at_core_preprocess_html(&$variables) {
   $variables['googlefonts_url'] = '';
   $variables['typekit_id'] = '';
 
-  // Initialize prefetch variables
+  // Initialize prefetch variables.
   $variables['google_dns_prefetch'] = FALSE;
   $variables['false_dns_prefetch'] = FALSE;
 
@@ -85,7 +92,7 @@ function at_core_preprocess_html(&$variables) {
     $variables['path_info']['args'] = Html::cleanCssIdentifier(ltrim($path, '/'));
   }
 
-  // Extensions
+  // Extensions.
   if (isset($config['enable_extensions']) && $config['enable_extensions'] === 1) {
 
     // Skip navigation target setting.
@@ -102,7 +109,7 @@ function at_core_preprocess_html(&$variables) {
         $touch_rel = 'apple-touch-icon-precomposed';
       }
 
-      // For non-Retina iPhone, iPod Touch, and Android 2.1+ devices
+      // For non-Retina iPhone, iPod Touch, and Android 2.1+ devices.
       if (isset($config['icon_path_default']) && !empty($config['icon_path_default'])) {
         $icon_path_default = $variables['theme']['path'] . '/' . Html::escape($config['icon_path_default']);
         if (file_exists($icon_path_default) === TRUE) {
@@ -173,11 +180,11 @@ function at_core_preprocess_html(&$variables) {
         $variables['touch_icons'][$touch_item] = [
           '#type'     => 'inline_template',
           '#template' => '<link href="{{ href }}" rel="{{ rel }}" sizes="{{ size }}" />',
-          '#context'  => array(
+          '#context'  => [
             'href' => $touch_item_values['href'],
             'rel'  => $touch_item_values['rel'],
             'size' => $touch_item_values['size'],
-          ),
+          ],
         ];
       }
     }
@@ -210,7 +217,7 @@ function at_core_preprocess_html(&$variables) {
   $breakpoints_module = \Drupal::moduleHandler()->moduleExists('breakpoint');
   if ($breakpoints_module == TRUE) {
     $breakpoints_array = [];
-    $breakpoint_groups[] = isset($config['breakpoint_group_layout']) ? $config['breakpoint_group_layout']: 'at_core.simple';
+    $breakpoint_groups[] = isset($config['breakpoint_group_layout']) ? $config['breakpoint_group_layout'] : 'at_core.simple';
     // Push 'at_core.simple' onto the array, the Layout Plugin layouts always
     // require these breakpoints to be set.
     if ($breakpoint_groups !== 'at_core.simple') {
@@ -244,13 +251,14 @@ function at_core_preprocess_html(&$variables) {
 
 /**
  * Preprocess variables for page templates.
+ *
  * @param $variables
  */
 function at_core_preprocess_page(&$variables) {
-  // Config
+  // Config.
   $config = $variables['theme']['config'];
 
-  // Page classes
+  // Page classes.
   $variables['attributes']['class'][] = 'page';
 
   // Set attribution.
@@ -267,7 +275,7 @@ function at_core_preprocess_page(&$variables) {
     '#type' => 'inline_template',
     '#template' => '<div data-at-row="attribution" class="l-attribution l-row"><div class="l-pr attribution"><div class="l-rw">{{ attribution }}</div></div></div>',
     '#context' => [
-      'attribution' => \Drupal\Core\Link::fromTextAndUrl(t('Design by Adaptivethemes.com'), $attribution_url)->toString(),
+      'attribution' => Link::fromTextAndUrl(t('Design by Adaptivethemes.com'), $attribution_url)->toString(),
     ],
   ];
 
@@ -289,7 +297,7 @@ function at_core_preprocess_page(&$variables) {
     }
   }
 
-  //--- Layout -------------------------------------------------------------- //
+  // --- Layout -------------------------------------------------------------- //
   // Active theme name.
   $active_theme_name = $variables['theme']['name'];
 
@@ -299,7 +307,8 @@ function at_core_preprocess_page(&$variables) {
   // TODO remove at some stage.
   if ($active_theme_name === 'at_generator') {
     $variables['main']['has_regions'] = TRUE;
-    return; // return early to avoid notices and errors.
+    // Return early to avoid notices and errors.
+    return;
   }
 
   if (isset($config['layouts_enable']) && $config['layouts_enable'] === 1) {
@@ -308,14 +317,14 @@ function at_core_preprocess_page(&$variables) {
     //  - "arc--[n]" active region count in this row, e.g. "arc--2".
     //  - "hr--[n-n]" has regions, by source order, e.g. "hr--1-3".
     $variables['attributes']['class'][] = 'js-layout';
-    //$regions = system_region_list($active_theme_name, REGIONS_VISIBLE);
+    // $regions = system_region_list($active_theme_name, REGIONS_VISIBLE);
     $regions = system_region_list($active_theme_name, BlockRepositoryInterface::REGIONS_VISIBLE);
     $active_regions = [];
     // Do a basic check for emptiness, however we can never be sure because of
     // placeholders: https://www.drupal.org/node/953034
     // After the page loads at.layout.js runs to fix incorrect layout classes.
     // Note the old render early code has been removed, i.e.:
-    // if ($region = \Drupal::service('renderer')->render($variables['page'][$region_name])) {}
+    // if ($region = \Drupal::service('renderer')->render($variables['page'][$region_name])) {}.
     foreach ($regions as $region_name => $region_label) {
       if (!empty($variables['page'][$region_name])) {
         $active_regions[] = $region_name;
@@ -332,7 +341,7 @@ function at_core_preprocess_page(&$variables) {
       foreach ($active_regions as $key => $region) {
         // Get the row key for each region.
 
-        // TODO shortcodes on method for rows
+        // TODO shortcodes on method for rows.
         $row_key = $layout_load->regionAttributes($region);
         if (!empty($row_key)) {
           // Prepare variables for each row template.
@@ -354,6 +363,7 @@ function at_core_preprocess_page(&$variables) {
 
 /**
  * Preprocess variables for row templates.
+ *
  * @param $variables
  */
 function at_core_preprocess_row(&$variables) {
@@ -372,6 +382,7 @@ function at_core_preprocess_row(&$variables) {
 
 /**
  * Preprocess variables for region templates.
+ *
  * @param $variables
  */
 function at_core_preprocess_region(&$variables) {
@@ -421,6 +432,7 @@ function at_core_preprocess_region(&$variables) {
 
 /**
  * Preprocess variables for node templates.
+ *
  * @param $variables
  */
 function at_core_preprocess_node(&$variables) {
@@ -476,6 +488,7 @@ function at_core_preprocess_node(&$variables) {
 
 /**
  * Preprocess variables for comment templates.
+ *
  * @param $variables
  */
 function at_core_preprocess_comment(&$variables) {
@@ -515,7 +528,7 @@ function at_core_preprocess_comment(&$variables) {
     $attributes = $uri->getOption('attributes') ?: [];
     $attributes += ['class' => ['permalink'], 'rel' => 'bookmark'];
     $uri->setOption('attributes', $attributes);
-    $variables['title'] = \Drupal\Core\Link::fromTextAndUrl($comment->getSubject(), $uri);
+    $variables['title'] = Link::fromTextAndUrl($comment->getSubject(), $uri);
   }
 
   // Hide comment titles.
@@ -548,6 +561,7 @@ function at_core_preprocess_comment(&$variables) {
 
 /**
  * Preprocess variables for block templates.
+ *
  * @param $variables
  */
 function at_core_preprocess_block(&$variables) {
@@ -604,10 +618,10 @@ function at_core_preprocess_block(&$variables) {
       }
     }
 
-    // Markup overrides
+    // Markup overrides.
     if (isset($config['enable_markup_overrides']) && $config['enable_markup_overrides'] === 1) {
 
-      // Use PNG logo in branding block
+      // Use PNG logo in branding block.
       if ($variables['base_plugin_id'] === 'system_branding_block') {
         if (isset($config['png_logo']) && $config['png_logo'] === 1) {
           $variables['site_logo'] = '';
@@ -656,14 +670,16 @@ function at_core_preprocess_block(&$variables) {
 
 /**
  * Preprocess variables for block templates.
+ *
  * @param $variables
  */
-//function at_core_preprocess_menu(&$variables) {
+// Function at_core_preprocess_menu(&$variables) {
 //  kint($variables);
-//}
+// }
 
 /**
  * Preprocess variables for field templates.
+ *
  * @param $variables
  */
 function at_core_preprocess_field(&$variables) {
@@ -675,6 +691,7 @@ function at_core_preprocess_field(&$variables) {
 
 /**
  * Preprocess variables for entity reference field templates.
+ *
  * @param $variables
  */
 function at_core_preprocess_field__entity_reference(&$variables) {
@@ -686,6 +703,7 @@ function at_core_preprocess_field__entity_reference(&$variables) {
 
 /**
  * Preprocess variables for image field templates.
+ *
  * @param $variables
  */
 function at_core_preprocess_field__image(&$variables) {
@@ -749,10 +767,11 @@ function at_core_preprocess_field__image(&$variables) {
 
 /**
  * Preprocess variables for breadcrumb templates.
+ *
  * @param $variables
  */
 function at_core_preprocess_breadcrumb(&$variables) {
-  // Config
+  // Config.
   $config = $variables['theme']['config'];
 
   // New attributes array for breadcrumb title.
@@ -761,7 +780,7 @@ function at_core_preprocess_breadcrumb(&$variables) {
   // Set attributes.
   $variables['breadcrumb_label'] = FALSE;
 
-  // Label value
+  // Label value.
   $variables['breadcrumb_label_value'] = isset($config['breadcrumb_label_value']) ? $config['breadcrumb_label_value'] : 'You are here:';
 
   // Theme settings.
@@ -810,6 +829,7 @@ function at_core_preprocess_breadcrumb(&$variables) {
 
 /**
  * Preprocess variables for user templates.
+ *
  * @param $variables
  */
 function at_core_preprocess_user(&$variables) {
@@ -845,6 +865,7 @@ function at_core_preprocess_user(&$variables) {
 
 /**
  * Preprocess variables for user templates.
+ *
  * @param $variables
  */
 function at_core_preprocess_views_view(&$variables) {
@@ -861,6 +882,7 @@ function at_core_preprocess_views_view(&$variables) {
 
 /**
  * Preprocess variables for links templates.
+ *
  * @param $variables
  */
 function at_core_preprocess_links(&$variables) {
@@ -885,6 +907,7 @@ function at_core_preprocess_links(&$variables) {
 
 /**
  * Preprocess variables for forums templates.
+ *
  * @param $variables
  */
 function at_core_preprocess_forums(&$variables) {
@@ -910,7 +933,8 @@ function at_core_preprocess_forums(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_HOOK() for maintenance-page.html.twig
+ * Implements hook_preprocess_HOOK() for maintenance-page.html.twig.
+ *
  * @param $variables
  */
 function at_core_preprocess_maintenance_page(&$variables) {
@@ -920,6 +944,7 @@ function at_core_preprocess_maintenance_page(&$variables) {
 
 /**
  * Preprocess variables for the select template.
+ *
  * @param $variables
  */
 function at_core_preprocess_select(&$variables) {
@@ -932,6 +957,7 @@ function at_core_preprocess_select(&$variables) {
 /**
  * Preprocess variables for AT Layout Plugin templates.
  * This function is added in at_core_theme_registry_alter().
+ *
  * @param $variables
  */
 function at_core_preprocess_at_layout(&$variables) {
@@ -945,6 +971,7 @@ function at_core_preprocess_at_layout(&$variables) {
 
 /**
  * Preprocess variables for node add/edit templates.
+ *
  * @param $variables
  */
 function at_core_preprocess_node_edit_form(&$variables) {
