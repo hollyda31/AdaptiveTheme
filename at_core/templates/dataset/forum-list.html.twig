@@ -79,7 +79,7 @@
           depth this forum resides at. This will allow us to use CSS
           left-margin for indenting.
         #}
-        {% for i in 1..forum.depth if forum.depth > 0 %}<div class="indent">{% endfor %}
+        {% for i in 1..forum.depth|filter(forum.depth > 0) %}<div class="indent">{% endfor %}
           <div class="icon forum-icon forum-status-{{ forum.icon_class }}" title="{{ forum.icon_title }}">
             <svg class="{{ 'forum-icon-' ~  forum.icon_class }}">
               <use xlink:href="#{{ 'forum-icon-' ~  forum.icon_class }}"></use>
@@ -90,7 +90,7 @@
           {% if forum.description.value %}
             <div class="forum-list__description">{{ forum.description.value }}</div>
           {% endif %}
-        {% for i in 1..forum.depth if forum.depth > 0 %}</div>{% endfor %}
+        {% for i in 1..forum.depth|filter(forum.depth > 0) %}</div>{% endfor %}
       </td>
       {% if forum.is_container == false %}
         <td class="table__cell forum-list__topics">
