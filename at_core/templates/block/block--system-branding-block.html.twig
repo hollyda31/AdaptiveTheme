@@ -24,7 +24,7 @@
     site_slogan ? 'has-slogan',
   ]
 -%}
-<div{{ attributes.addClass(classes) }} id="{{ plugin_id|clean_id }}">
+<div{{ attributes.addClass(classes) }}>
   <div class="block__inner block-branding__inner">
 
     {{ title_prefix }}
@@ -34,7 +34,7 @@
     {{ title_suffix }}
 
     {%- block content -%}
-      <div{{ content_attributes.addClass('block__content', 'block-branding__content', 'site-branding') }}>
+      <div{{ content_attributes.addClass('block__content', 'block-branding__content', 'site-branding') }} id="{{ plugin_id|clean_id }}">
         {%- if site_logo -%}
           <a href="{{ path('<front>') }}" title="{{ 'Home'|t }}" itemprop="url" rel="home" class="site-branding__logo-link"><img src="{{ site_logo }}" alt="{{ 'Home'|t }}" itemprop="logo" class="site-branding__logo-img" /></a>
         {%- endif -%}

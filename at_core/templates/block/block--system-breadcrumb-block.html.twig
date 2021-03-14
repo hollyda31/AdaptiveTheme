@@ -35,8 +35,8 @@
   ]
 -%}
 {%- set heading_id = attributes.id ~ '-menu'|clean_id -%}
-<div role="navigation" aria-labelledby="{{ heading_id }}"{{ attributes.addClass(classes)|without('role', 'aria-labelledby') }} id="{{ plugin_id|clean_id }}">
-  <div class="block__inner">
+<div role="navigation" aria-labelledby="{{ heading_id }}"{{ attributes.addClass(classes)|without('role', 'aria-labelledby') }}>
+  <div class="block__inner" id="{{ plugin_id|clean_id }}">
 
     {# Label. If not displayed, we still provide it for screen readers. #}
     {%- if not configuration.label_display -%}
