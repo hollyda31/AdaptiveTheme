@@ -36,7 +36,7 @@
       has_links ? 'has-links',
     ]
   %}
-  <nav id="book-navigation-{{ book_id }}" class="{{ nav_classes|join(' ') }}" aria-labelledby="book-label-{{ book_id }}">
+  <nav id="book-navigation-{{ book_id }}" class="{{ nav_classes|join(' ') }}" role="navigation" aria-labelledby="book-label-{{ book_id }}">
     {{ tree }}
     {% if has_links %}
       {%

@@ -25,7 +25,7 @@
  * @see template_preprocess_block()
  */
 #}
-<main{{ attributes.addClass('block', 'block-main-content')|without('role') }}>
+<main{{ attributes.addClass('block', 'block-main-content')|without('role') }} role="main" id="{{ plugin_id|clean_id }}">
   {{ title_prefix }}
   {{ content }}
   {{ title_suffix }}
