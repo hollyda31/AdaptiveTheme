@@ -8,12 +8,12 @@
 #}
 <div class="page maintenance-page">
 
-  <header class="l-pr page__row pr-header" role="banner" id="masthead">
+  <header class="l-pr page__row pr-header" id="masthead">
     <div class="site-branding">
 
       {% if logo %}
-        <a href="{{ front_page }}" title="{{ 'Home'|t }}" itemprop="url" rel="home" class="site-branding__logo-link">
-          <img src="{{ logo }}" alt="{{ 'Home'|t }}" itemprop="logo" class="site-branding__logo-img"/>
+        <a href="{{ front_page }}" title="{{ 'Home'|t }}" rel="home" class="site-branding__logo-link">
+          <img src="{{ logo }}" alt="{{ 'Home'|t }}" class="site-branding__logo-img"/>
         </a>
       {% endif %}
 
@@ -21,7 +21,7 @@
         <span class="site-branding__text">
           {% if site_name %}
             <strong class="site-branding__name">
-             <a href="{{ front_page }}" title="{{ 'Home'|t }}" itemprop="url" rel="home" class="site-branding__name-link">{{ site_name }}</a>
+             <a href="{{ front_page }}" title="{{ 'Home'|t }}" rel="home" class="site-branding__name-link">{{ site_name }}</a>
             </strong>
           {% endif %}
           {% if site_slogan %}
@@ -33,7 +33,7 @@
     </div>
   </header>
 
-  <main class="l-pr page__row pr-main" role="main" id="main-content">
+  <main class="l-pr page__row pr-main" id="main-content">
     {% if title %}
       <h1 class="page__title">{{ title }}</h1>
     {% endif %}
