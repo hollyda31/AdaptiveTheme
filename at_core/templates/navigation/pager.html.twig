@@ -32,7 +32,7 @@
 {% if items -%}
   <nav class="pager pager--full" role="navigation" aria-labelledby="pagination-heading">
     <h3 id="pagination-heading" class="visually-hidden">{{ 'Pagination'|t }}</h3>
-    <ul class="pager__items">
+    <div class="pager__items">
       {# Prev/first. #}
       {%- if items.first or items.previous -%}
         <ul class="pager__items__first-previous js-pager__items">
@@ -116,6 +116,6 @@
       {%- if items.next or items.last -%}
         </ul>
       {%- endif -%}
-    </ul>
+    </div>
   </nav>
 {%- endif %}
