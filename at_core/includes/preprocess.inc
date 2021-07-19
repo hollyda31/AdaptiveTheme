@@ -262,7 +262,7 @@ function at_core_preprocess_page(&$variables) {
   $variables['attributes']['class'][] = 'page';
 
   // Set attribution.
-  $attribution_url = Url::fromUri('//adaptivethemes.com',
+  $attribution_url = Url::fromUri('//drupal.org/project/at_theme',
     $options = [
       'attributes' => [
         'class' => ['attribution__link'],
@@ -275,7 +275,7 @@ function at_core_preprocess_page(&$variables) {
     '#type' => 'inline_template',
     '#template' => '<div data-at-row="attribution" class="l-attribution l-row"><div class="l-pr attribution"><div class="l-rw">{{ attribution }}</div></div></div>',
     '#context' => [
-      'attribution' => Link::fromTextAndUrl(t('Design by Adaptivethemes.com'), $attribution_url)->toString(),
+      'attribution' => Link::fromTextAndUrl(t('Design by Adaptive Theme'), $attribution_url)->toString(),
     ],
   ];
 
