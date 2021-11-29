@@ -3,6 +3,10 @@
   "description": "Advanced base theme for Drupal.",
   "type": "drupal-theme",
   "homepage": "https://www.drupal.org/project/adaptivetheme",
+  "require": {
+    "drupal/at_tool": "^8 || ^9",
+	"drupal/core": "^8 || ^9"
+  },
   "authors": [
     {
       "name": "Matt",
@@ -16,9 +20,5 @@
     "source": "http://git.drupal.org/project/at_theme.git"
   },
   "license": "GPL-2.0+",
-  "minimum-stability": "dev",
-  "require": {
-    "drupal/at_tool": "^8 || ^9",
-	"drupal/core": "^8 || ^9"
-  }
+  "minimum-stability": "dev"
 }
