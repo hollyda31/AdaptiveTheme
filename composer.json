@@ -2,23 +2,12 @@
   "name": "drupal/at_theme",
   "description": "Advanced base theme for Drupal.",
   "type": "drupal-theme",
-  "homepage": "https://www.drupal.org/project/adaptivetheme",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://www.drupal.org/project/at_theme",
   "require": {
-    "drupal/at_tool": "^8 || ^9",
-	"drupal/core": "^8 || ^9"
+    "drupal/at_tool": "^1.4.6"
   },
-  "authors": [
-    {
-      "name": "Matt",
-      "homepage": "http://adaptivethemes.com",
-      "role": "Maintainer"
-    }
-  ],
-  "support": {
-    "issues": "https://www.drupal.org/project/issues/at_theme",
-    "irc": "irc://irc.freenode.org/drupal-contribute",
-    "source": "http://git.drupal.org/project/at_theme.git"
-  },
-  "license": "GPL-2.0+",
-  "minimum-stability": "dev"
+  "authors": [{
+    "name": "Matt"
+  }]
 }
