@@ -10,7 +10,7 @@
           "url": "https://packages.drupal.org/8"
       }
   ],
-  "require": {
+  "require-dev": {
     "drupal/at_tool": "^1.4.6"
   },
   "authors": [{
